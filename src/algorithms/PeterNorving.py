@@ -13,13 +13,16 @@ class PerterNorvig():
         self.peers = dict((s, set(sum(self.units[s],[]))-set([s]))
                          for s in self.squares)
 
-    ##
-    # Cross product of elements in A and elements in B.
-    # @param A: Mostly this will be the row values.
-    # @param B: Mostly this will be the colum values.
-    # @return Array[]: Returns the grid with the filled coordinates.
-    def cross(self, A, B):
-        return [a+b for a in A for b in B]
+    def cross(self, key_list, value_list):
+        """
+        Cross product of elements in key_list and elements in value_list.
+        Returns the grid with the filled coordinates.
+
+        Keyword arguments:
+        key_list -- Mostly this will be the row values.
+        value_list -- Mostly this will be the colum values.
+        """
+        return [key+value for key in key_list for value in value_list]
 
     ##
     # Convert grid to a dict of possible values, {square: digits}, or
