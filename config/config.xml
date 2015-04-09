@@ -23,7 +23,7 @@
 				<Id>1</Id>				
 				<BottomLimit>60</BottomLimit>
 				<TopLimit>70</TopLimit>
-				<Status>Inactive</Status>					
+				<Status>Active</Status>					
 			</Level>
 			<Level name="Medium">
 				<Id>2</Id>				
@@ -41,7 +41,7 @@
 				<LId>4</LId>
 				<BottomLimit>10</BottomLimit>
 				<TopLimit>15</TopLimit>
-				<Status>Active</Status>
+				<Status>Inactive</Status>
 			</Level>				
 		</Generation>
 	

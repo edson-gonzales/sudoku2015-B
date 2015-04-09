@@ -17,7 +17,7 @@ class Interface(Frame):
 		main.title("Sudoku Game Interface")
 
 		# barmenu options
-		self.barmenu()
+		#self.barmenu()
 
 		#buttons sections
 		#settings
@@ -80,5 +80,6 @@ class Interface(Frame):
 
 if __name__ == '__main__':
 	main=Tk()
-	Interface(main)
+	current = Interface(main)
+	
 

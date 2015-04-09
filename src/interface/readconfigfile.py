@@ -5,24 +5,22 @@ class ReadConfigFile():
 	def __init__(self):	
 		
 		xmld=etree.parse("D:\python2015\config.xml")		
-		root=xmld.getroot()
-		#ReadConfigFile(root)
-	
-		#self.root=root
+		self.root=xmld.getroot()
 
 		#get the outputfile configuration
-		self.getoutputfile(root)
+		self.getoutputfile()
 		#get the list of available algorithms
-		self.getlistofalgorithms(root)
+		self.getlistofalgorithms()
 		#get the list of available levels
-		self.getlistofgenerationlevelsnames(root)
+		self.getlistofgenerationlevelsnames()
 		# get details of levelgeneration
-		self.getdetailsofgenerationlevels(root,"Hard")
+		self.getdetailsofgenerationlevels("Hard")
 		
 
-	def getoutputfile(self,root):
+	def getoutputfile(self):
+		
 		listoutput=[]
-		for output in root.findall('Output'):
+		for output in self.root.findall('Output'):
 			path = output.find('Path').text
 			name = output.find('Name').text		    
 			extension = output.find('Extension').text	
@@ -32,44 +30,54 @@ class ReadConfigFile():
 		listoutput.append(name)
 		listoutput.append(extension)
 
-		print(listoutput)
-		#return listoutput
+		#print(listoutput)
+		return listoutput
 
-		#self.listoffiletypessupported(root)
-
-	def listoffiletypessupported(self,root):
+	def listoffiletypessupported(self):
 		listypes=[]
 		num=1
-		for solve in root.findall('./Output/Extension/type'):			
+		for solve in self.root.findall('./Output/Extension/type'):			
 			namealg = solve.find('type').text
 			#print namealg
 			#listypes.append(typevalue)
 		
 		#print listypes
 
-	def getlistofalgorithms(self,root):
+	def getlistofalgorithms(self):
 
   		listoutput=[]
-		for solve in root.findall('./Solve/Algorithm'):			
-			namealg = solve.get('name')
-			listoutput.append(namealg)				
+  		finallist=[]
+		for solve in self.root.findall('./Solve/Algorithm'):						
+			if solve.find('Status').text=='Active':
+				namealgactive = solve.get('name')				
+			else:
+				namealg = solve.get('name')
+				listoutput.append(namealg)
 
-		#print(listoutput)
+		listoutput.append(namealgactive)
+		listoutput.reverse()
+		
+		#print (listoutput)
 		return listoutput
 	
-	def getlistofgenerationlevelsnames(self,root):
+	def getlistofgenerationlevelsnames(self):
 		listoutput=[]
-		for level in root.findall("./Generation/Level"):			
-			namelevel = level.get('name')
-			listoutput.append(namelevel)				
+		for level in self.root.findall("./Generation/Level"):			
+			if level.find('Status').text=='Active':
+				namelevelactive = level.get('name')
+			else:
+				namelevel = level.get('name')
+				listoutput.append(namelevel)				
 
+		listoutput.append(namelevelactive)
+		listoutput.reverse()
 		#print(listoutput)
 		return listoutput
 
-	def getdetailsofgenerationlevels(self,root,levelname):
+	def getdetailsofgenerationlevels(self,levelname):
 		listoutput=[]
 		
-		for level in root.findall("./Generation/Level/[@name='"+levelname+"']"):			
+		for level in self.root.findall("./Generation/Level/[@name='"+levelname+"']"):			
 					bottomlimit = level.find('BottomLimit').text
 					toplimit = level.find('TopLimit').text				
 					status = level.find('Status').text				
@@ -80,11 +88,4 @@ class ReadConfigFile():
 
 		#print(listoutput)
 		return listoutput		
-
-
-#if __name__ == '__main__':
-
-	#xmld=etree.parse("D:\python2015\config.xml")		
-	#root=xmld.getroot()
-#	ReadConfigFile()
-read=ReadConfigFile()
+ReadConfigFile()
