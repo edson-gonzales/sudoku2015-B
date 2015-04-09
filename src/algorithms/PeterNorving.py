@@ -24,69 +24,85 @@ class PerterNorvig():
         """
         return [key+value for key in key_list for value in value_list]
 
-    ##
-    # Convert grid to a dict of possible values, {square: digits}, or
-    # return False if a contradiction is detected.
-    # @param grid:  Dict with initial values.
-    # @return dict: Grid with all the possible values.
     def parse_grid(self, grid):
+        """
+        Convert grid to a dict of possible values, {square: digits}, or
+        return False if a contradiction is detected.
+        return dict: Grid with all the possible values.
+
+        Keyword arguments:
+        param grid -- Dict with initial values.
+        """
         values = dict((s, self.digits) for s in self.squares)
         for s,d in self.grid_values(grid).items():
             if d in self.digits and not self.assign(values, s, d):
                 return False
         return values
-    ##
-    # Convert grid into a dict of {square: char} with '0' or '.' for empties.
-    # @param grid: skeleton grid
-    # @return dict: grid dict with the values.
+
     def grid_values(self, grid):
+        """
+        Convert grid into a dict of {square: char} with '0' or '.' for empties.
+        return dict: grid dict with the values.
+
+        Keyword arguments:
+        grid -- skeleton grid
+        """
         chars = [c for c in grid if c in self.digits or c in '0.']
         assert len(chars) == 81
         return dict(zip(self.squares, chars))
 
-    ##
-    # Eliminate all the other values (except d) from values[s] and propagate.
-    # Return values, except return False if a contradiction is detected.
-    # @param values: initial dict
-    # @param s: square
-    # @param d: digit
-    # @return dict: return cleaned values.
-    def assign(self, values, s, d):
-        other_values = values[s].replace(d, '')
-        if all(self.eliminate(values, s, d2) for d2 in other_values):
+    def assign(self, values, square, digit):
+        """
+        Eliminate all the other values (except the sent digit) from values[square] and propagate.
+        Return values, except return False if a contradiction is detected.
+
+        Keyword arguments:
+        values -- initial dict
+        square -- square position
+        digit --  selected digits
+        """
+        other_values = values[square].replace(digit, '')
+        if all(self.eliminate(values, square, d2) for d2 in other_values):
             return values
         else:
             return False
-    ##
-    # Eliminate d from values[s]; propagate when values or places <= 2.
-    # Return values, except return False if a contradiction is detected.
-    # @param values: initial dic
-    # @param s: square
-    # @param d: digit
-    # @return dict: return cleaned values.
-    def eliminate(self, values, s, d):
-        if d not in values[s]:
+
+    def eliminate(self, values, square, digit):
+        """
+        Eliminate digit from values[square]; propagate when values or places <= 2.
+        Return values, except return False if a contradiction is detected.
+
+        Keyword arguments:
+        values -- initial dic
+        square -- square position
+        digit -- digit values
+        """
+        if digit not in values[square]:
             return values
-        values[s] = values[s].replace(d, '')
-        if len(values[s]) == 0:
+        values[square] = values[square].replace(digit, '')
+        if len(values[square]) == 0:
             return False
-        elif len(values[s]) == 1:
-            d2 = values[s]
-            if not all(self.eliminate(values, s2, d2) for s2 in self.peers[s]):
+        elif len(values[square]) == 1:
+            d2 = values[square]
+            if not all(self.eliminate(values, s2, d2) for s2 in self.peers[square]):
                 return False
-        for u in self.units[s]:
-            dplaces = [s for s in u if d in values[s]]
+        for u in self.units[square]:
+            dplaces = [square for square in u if digit in values[square]]
             if len(dplaces) == 0:
                 return False
             elif len(dplaces) == 1:
-                if not self.assign(values, dplaces[0], d):
+                if not self.assign(values, dplaces[0], digit):
                     return False
         return values
 
-    ## Using depth-first search and propagation, try all possible values.
-    # @param values: updates possible values dict.
-    # @return dict: updates possible values dict after search algorithm.
     def search(self, values):
+        """
+        Using depth-first search and propagation, try all possible values.
+        return dict: updates possible values dict after search algorithm.
+
+        Keyword arguments:
+        values -- updates possible values dict.
+        """
         if values is False:
             return False
         if all(len(values[s]) == 1 for s in self.squares):
@@ -94,22 +110,23 @@ class PerterNorvig():
         n,s = min((len(values[s]), s) for s in self.squares if len(values[s]) > 1)
         return self.some(self.search(self.assign(values.copy(), s, d))
                     for d in values[s])
-    ##
-    # Return some element of seq that is true.
-    # @param seq: values dict.
-    # @return boolean: return the element that is true.
+
     def some(self, seq):
+        """
+        Return boolean: return the element that is true.
+
+        Keyword arguments:
+        seq -- values dict.
+        """
         for e in seq:
             if e: return e
         return False
-    ##
-    # Solve the sudoku , returns False if the sudoku was invalid.
-    # @param grid: initial grid to solve.
-    def solve(self, grid): return self.search(self.parse_grid(grid))
 
+    def solve(self, grid):
+        """
+        Solve the sudoku , returns False if the sudoku was invalid.
 
-if __name__ == '__main__':
-    hard1 = "3...8.......7....51..............36...2..4....7...........6.13..452...........8.."
-    peter = PerterNorvig()
-    solved = peter.solve(hard1)
-    print(solved)
+        Keyword arguments:
+        grid -- initial grid to solve.
+        """
+        return self.search(self.parse_grid(grid))
