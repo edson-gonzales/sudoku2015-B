@@ -10,19 +10,19 @@ class Interface(Frame):
 
 		"""
 		main: tkinter frame object
-		contructor -- it will get Tkinter object to construct the main UI window.
-		this will call to initwindow() function , which will create and invoke all objects that will be avaiable in the mainwindow
+		constructor -- it will get Tkinter object to construct the main UI window.
+		this will call to initwindow() function , which will create and invoke all objects that will be available in the mainwindow
 		
 		"""
 
-		Frame.__init__(self,main)
+		Frame.__init__(self, main)
 		self.main = main
 		self.InitWindow()
 
 	def InitWindow(self):
 		
 		"""
-		The function will contain all objects (labels, buttons, text areas and so on) to be displayed in the window and also here has defined the zise of the window
+		The function will contain all objects (labels, buttons, text areas and so on) to be displayed in the window and also here has defined the size of the window
 		this function will call the following command functions:
 			--settings
 			--quit
