@@ -47,8 +47,6 @@ class ReadConfigFile():
 			#print namealg
 			#listypes.append(typevalue)
 		
-		#print listypes
-		#listypes
 
 	def getlistofalgorithms(self):
 		"""
@@ -68,7 +66,6 @@ class ReadConfigFile():
 		listalgorithms.append(namealgactive)
 		listalgorithms.reverse()
 		
-		#print (listoutput)
 		return listalgorithms
 	
 	def getlistofgenerationlevelsnames(self):
@@ -90,7 +87,7 @@ class ReadConfigFile():
 
 		listlevels.append(namelevelactive)
 		listlevels.reverse()
-		#print(listoutput)
+		
 		return listlevels
 
 	def getdetailsofgenerationlevels(self, levelname):
@@ -114,8 +111,5 @@ class ReadConfigFile():
 					listdetailslevel.append(toplimit)
 					listdetailslevel.append(status)
 
-		#print(listoutput)
+		
 		return listdetailslevel		
-
-#fileconfig='../../config/config.xml'
-#ReadConfigFile(fileconfig)

@@ -38,7 +38,7 @@
 				<Status>Inactive</Status>
 			</Level>
 			<Level name="Custom">
-				<LId>4</LId>
+				<Id>4</Id>
 				<BottomLimit>10</BottomLimit>
 				<TopLimit>15</TopLimit>
 				<Status>Inactive</Status>

@@ -14,7 +14,6 @@ class SettingsGame(Frame):
 		"""
 		main = Tk()
 		self.fileconfig = '../../config/config.xml'
-		#Frame.__init__(self,main)
 		self.main = main
 		self.initwindow()
 
@@ -33,8 +32,6 @@ class SettingsGame(Frame):
 		#definying the UI option to shown up and edit the values of Output file
 		Label(self.main, text = "Output File Config:").place(x = 15, y= 10)
 		Label(self.main, text = "Path: ").place(x = 15, y = 40)
-		#Label(main,text="Name: ").place(x=15,y=65)
-		#Label(main,text="Ext.: ").place(x=230,y=65)
 		
 		# fill values in the output entry
 		self.fillvaluesintheOutpufileEntry()
@@ -74,12 +71,12 @@ class SettingsGame(Frame):
 		"""
 		getvaluesoutputfile = ReadConfigFile(self.fileconfig).getoutputfile()
 		currentpath = StringVar()
-		#currentname=StringVar()
+		
 		currentpath.set(getvaluesoutputfile[0] + '\\' + getvaluesoutputfile[1] + '.' + getvaluesoutputfile[2])
-		#currentname.set("name.txt")
+		
 
 		outputf1 = Entry(self.main, textvariable = currentpath, width = 30).place(x = 100, y = 40)
-		#outputf2=Entry(self.main,textvariable=currentname).place(x=100,y=65)
+		
 
 	def Listofsupportedfilestypes(self):
 		"""
@@ -103,10 +100,9 @@ class SettingsGame(Frame):
 		listofalgorithms = ReadConfigFile(self.fileconfig).getlistofalgorithms()		
 		
 		lstAlgorithms = Listbox(self.main, heigh = 4)
-		pos = 6
+		
 		for index in range(len(listofalgorithms)):
 			lstAlgorithms.insert(index,listofalgorithms[index])			
-			pos = pos + 1
 		
 		lstAlgorithms.selection_set( first = 0 )
 		lstAlgorithms.place(x = 100, y = 120)
@@ -148,6 +144,3 @@ class SettingsGame(Frame):
 
 		"""
 		sys.exit()
-
-
-#SettingsGame()
