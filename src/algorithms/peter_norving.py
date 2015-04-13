@@ -1,4 +1,4 @@
-class PerterNorvig():
+class PeterNorvig():
 
     def __init__(self):
         self.digits = '123456789'
@@ -16,26 +16,26 @@ class PerterNorvig():
     def cross(self, key_list, value_list):
         """
         Cross product of elements in key_list and elements in value_list.
-        Returns the grid with the filled coordinates.
 
         Keyword arguments:
         key_list -- Mostly this will be the row values.
         value_list -- Mostly this will be the colum values.
+        Returns the grid with the filled coordinates.
         """
-        return [key+value for key in key_list for value in value_list]
+        return [key + value for key in key_list for value in value_list]
 
     def parse_grid(self, grid):
         """
         Convert grid to a dict of possible values, {square: digits}, or
         return False if a contradiction is detected.
-        return dict: Grid with all the possible values.
 
         Keyword arguments:
         param grid -- Dict with initial values.
+        return a dictionarie Grid with all the possible values.
         """
-        values = dict((s, self.digits) for s in self.squares)
-        for s,d in self.grid_values(grid).items():
-            if d in self.digits and not self.assign(values, s, d):
+        values = dict((square, self.digits) for square in self.squares)
+        for square,digit in self.grid_values(grid).items():
+            if digit in self.digits and not self.assign(values, square, digit):
                 return False
         return values
 
