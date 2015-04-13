@@ -7,6 +7,7 @@ class SettingsGame(Frame):
 
 	def __init__(self):
 		main=Tk()
+		self.fileconfig='../../config/config.xml'
 		#Frame.__init__(self,main)
 		self.main=main
 		self.initwindow()
@@ -54,7 +55,7 @@ class SettingsGame(Frame):
 		self.main.mainloop()
 
 	def fillvaluesintheentries(self):
-		getvaluesoutputfile=ReadConfigFile().getoutputfile()
+		getvaluesoutputfile=ReadConfigFile(self.fileconfig).getoutputfile()
 		currentpath=StringVar()
 		#currentname=StringVar()
 		currentpath.set(getvaluesoutputfile[0]+'\\'+getvaluesoutputfile[1]+'.'+getvaluesoutputfile[2])
@@ -74,7 +75,7 @@ class SettingsGame(Frame):
 
 	def ShowListAlgorithms(self):
 		
-		listofalgorithms=ReadConfigFile().getlistofalgorithms()		
+		listofalgorithms=ReadConfigFile(self.fileconfig).getlistofalgorithms()		
 		
 		lstAlgorithms=Listbox(self.main,heigh=4)
 		pos=6
@@ -87,7 +88,7 @@ class SettingsGame(Frame):
 			
 	def showlevelcombobox(self):
 
-		listvalueslevel=ReadConfigFile().getlistofgenerationlevelsnames()		
+		listvalueslevel=ReadConfigFile(self.fileconfig).getlistofgenerationlevelsnames()		
 		lstLevels = ttk.Combobox (self.main, state='readonly')
 		lstLevels['values']=(listvalueslevel)
 		lstLevels.current(0)
@@ -96,7 +97,7 @@ class SettingsGame(Frame):
 		self.showdetailsoflevel(listvalueslevel[0])
 
 	def showdetailsoflevel(self,levelname):
-		detailslevel=ReadConfigFile().getdetailsofgenerationlevels(levelname)
+		detailslevel=ReadConfigFile(self.fileconfig).getdetailsofgenerationlevels(levelname)
 		toplimit=StringVar()
 		bottonlimit=StringVar()
 		toplimit.set(detailslevel[1])
@@ -106,5 +107,6 @@ class SettingsGame(Frame):
 
 	def quit(self):
 		sys.exit()
+
 
 SettingsGame()

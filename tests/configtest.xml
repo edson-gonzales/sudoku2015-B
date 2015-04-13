@@ -1,0 +1,48 @@
+<Settings>
+		<Output>
+			<Path>d:\SudokuGame</Path>
+			<Name>Sudoku</Name>						
+			<Extension>txt</Extension>				
+		</Output>
+		<Solve>
+			<Algorithm name="Backtracking">
+				<Id>1</Id>
+				<Status>Inactive</Status>
+			</Algorithm>
+			<Algorithm name="PeterNovings">
+				<Id>2</Id>
+				<Status>Active</Status>
+			</Algorithm>
+			<Algorithm name="Other">
+				<Id>3</Id>
+				<Status>Inactive</Status>
+			</Algorithm>
+		</Solve>
+		<Generation>
+			<Level name="Easy">
+				<Id>1</Id>				
+				<BottomLimit>60</BottomLimit>
+				<TopLimit>70</TopLimit>
+				<Status>Active</Status>					
+			</Level>
+			<Level name="Medium">
+				<Id>2</Id>				
+				<BottomLimit>50</BottomLimit>
+				<TopLimit>60</TopLimit>
+				<Status>Inactive</Status>
+			</Level>
+			<Level name="Hard">
+				<Id>3</Id>				
+				<BottomLimit>10</BottomLimit>
+				<TopLimit>15</TopLimit>
+				<Status>Inactive</Status>
+			</Level>
+			<Level name="Custom">
+				<LId>4</LId>
+				<BottomLimit>10</BottomLimit>
+				<TopLimit>15</TopLimit>
+				<Status>Inactive</Status>
+			</Level>				
+		</Generation>
+	
+</Settings>
