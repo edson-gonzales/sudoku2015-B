@@ -5,7 +5,7 @@ class Backtracking(object):
 		self.UNASSIGNED = 0
 		self.DIMENSION = 9
 
-	def find_unassigned_location(self,grid,row,col):
+	def find_unassigned_location(self, grid, row, col):
 		""" Function that returns the possition of a cell with the value 
 		self.UNASSIGNED
 
@@ -15,8 +15,10 @@ class Backtracking(object):
 		return array[2]: position with the UNASSIGNED value or None in the case that
 			the grid is already filled.
 		"""
-	 	for row in range(len(grid)):
-	 		for col in range(len(grid[row])):
+		length_rows = len(grid)
+	 	for row in range(length_rows):
+	 		length_col = len(grid[row])
+	 		for col in range(length_col):
 	 			if grid[row][col] == self.UNASSIGNED:
 	 				return [row,col]
 	 	return None
@@ -51,7 +53,7 @@ class Backtracking(object):
 	 			return True;
 	 	return False
 	
-	def used_in_box(self, grid, box_start_row,box_start_col, num):
+	def used_in_box(self, grid, box_start_row, box_start_col, num):
 		""" Function that returns a boolean value when the *num* provided is 
 		repeated in a box 3x3.
 
@@ -64,7 +66,7 @@ class Backtracking(object):
 		"""
 	 	for row in range(3):
 	 		for col in range(3):
-	 			if grid[row+box_start_row][col+box_start_col] == num:
+	 			if grid[row + box_start_row][col + box_start_col] == num:
 	 				return True
 	 	return False 
 
@@ -80,10 +82,10 @@ class Backtracking(object):
 		return boolean -- return True when the number is valid or False in other case
 		"""
 	 	return  (not self.used_in_row(grid,row,num) 
-	 			and not self.used_in_col(grid,col,num) 
-	 			and not self.used_in_box(grid,row-row%3, col-col%3,num))
+	 			and not self.used_in_col(grid, col, num) 
+	 			and not self.used_in_box(grid, row - row % 3, col - col % 3, num))
 
-	def solve_backtraking(self,grid):
+	def solve_backtraking(self, grid):
 		""" Function that solve a sudoku game with the backtracking algorithm
 		int[9][9] grid -- the grid with the current sudoku values.
 		return boolean -- return True the Grid was solved and False when there is 
@@ -91,13 +93,13 @@ class Backtracking(object):
 		"""
 		row = 0
 		col = 0
-		position = self.find_unassigned_location(grid,row,col)
+		position = self.find_unassigned_location(grid, row, col)
 		if (position is None):
 			return True
 		row = position[0]
 		col = position[1]
 		for number in range(1,10):
-			if (self.is_safe(grid,row,col,number)):
+			if (self.is_safe(grid, row, col, number)):
 				grid[row][col] = number
 				if(self.solve_backtraking(grid)):
 					return True
@@ -110,12 +112,12 @@ class Backtracking(object):
 		string grid_string -- the string to convert
 		return int[9][9] -- a grid 9x9
 		"""
-		convert_dot_to_zero = maketrans('.','0')
+		convert_dot_to_zero = maketrans('.', '0')
 		grid_string = str(grid_string).translate(convert_dot_to_zero)
 		list_of_numbers = [int(n) for n in grid_string]
-		grid = [[0]*self.DIMENSION]*self.DIMENSION
+		grid = [[0] * self.DIMENSION] * self.DIMENSION
 		for row in range(self.DIMENSION):
-			grid[row] = list_of_numbers[row*self.DIMENSION:(row+1)*self.DIMENSION]
+			grid[row] = list_of_numbers[row * self.DIMENSION : ( row + 1 ) * self.DIMENSION]
 		return grid
 
 
