@@ -1,21 +1,11 @@
 import unittest, sys
 sys.path.append("../src/algorithms")
 
-from Algoritm_Brute_Force import solve
+from Algorithm_Brute_Force import AlgorithmBruteForce
 
-class TestBruteForceAlgorithm(unittest.TestCase):     
-    def test_sudoku_solution_is_correct_one(self):      
-      sudoku_to_solve = [[5, 3, 0, 0, 7, 0, 0, 0, 0],
-                [6, 0, 0, 1, 9, 5, 0, 0, 0],
-                [0, 9, 8, 0, 0, 0, 0, 6, 0],
-                [8, 0, 0, 0, 6, 0, 0, 0, 3],
-                [4, 0, 0, 8, 0, 3, 0, 0, 1],
-                [7, 0, 0, 0, 2, 0, 0, 0, 6],
-                [0, 6, 0, 0, 0, 0, 2, 8, 0],
-                [0, 0, 0, 4, 1, 9, 0, 0, 0],
-                [0, 0, 0, 0, 8, 0, 0, 7, 0]]
-      
-      sudoku_solved = [[5, 3, 4, 6, 7, 8, 9, 1, 2], 
+class TestBruteForceAlgorithm(unittest.TestCase): 
+    sudoku_to_solve = '530070000600195000098000060800060003400803001700020006060000280000419000000080070'    
+    sudoku_solved = [[5, 3, 4, 6, 7, 8, 9, 1, 2], 
                       [6, 7, 2, 1, 9, 5, 3, 4, 8], 
                       [1, 9, 8, 3, 4, 2, 5, 6, 7], 
                       [8, 5, 9, 7, 6, 1, 4, 2, 3], 
@@ -24,31 +14,27 @@ class TestBruteForceAlgorithm(unittest.TestCase):
                       [9, 6, 1, 5, 3, 7, 2, 8, 4], 
                       [2, 8, 7, 4, 1, 9, 6, 3, 5], 
                       [3, 4, 5, 2, 8, 6, 1, 7, 9]]
-      self.assertEquals(sudoku_solved, solve(sudoku_to_solve))
+
+    sudoku_emty = [[0, 0, 0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0, 0, 0]] 
+
+    def test_sudoku_solution_is_correct_one(self): 
+      solver = AlgorithmBruteForce()
+      self.assertEquals(self.sudoku_solved, solver.solve(self.sudoku_to_solve))
 
     def test_sudoku_solution_is_not_empty(self):
-      sudoku_to_solve = [[5, 3, 0, 0, 7, 0, 0, 0, 0],
-                [6, 0, 0, 1, 9, 5, 0, 0, 0],
-                [0, 9, 8, 0, 0, 0, 0, 6, 0],
-                [8, 0, 0, 0, 6, 0, 0, 0, 3],
-                [4, 0, 0, 8, 0, 3, 0, 0, 1],
-                [7, 0, 0, 0, 2, 0, 0, 0, 6],
-                [0, 6, 0, 0, 0, 0, 2, 8, 0],
-                [0, 0, 0, 4, 1, 9, 0, 0, 0],
-                [0, 0, 0, 0, 8, 0, 0, 7, 0]]
-      self.assertIsNotNone(solve(sudoku_to_solve))
+      solver = AlgorithmBruteForce()
+      self.assertIsNotNone(solver.solve(self.sudoku_to_solve))
 
-    def test_sudoku_solution_is_a_matrix_of_numbers(self):
-      sudoku_to_solve = [[5, 3, 0, 0, 7, 0, 0, 0, 0],
-                [6, 0, 0, 1, 9, 5, 0, 0, 0],
-                [0, 9, 8, 0, 0, 0, 0, 6, 0],
-                [8, 0, 0, 0, 6, 0, 0, 0, 3],
-                [4, 0, 0, 8, 0, 3, 0, 0, 1],
-                [7, 0, 0, 0, 2, 0, 0, 0, 6],
-                [0, 6, 0, 0, 0, 0, 2, 8, 0],
-                [0, 0, 0, 4, 1, 9, 0, 0, 0],
-                [0, 0, 0, 0, 8, 0, 0, 7, 0]]
-      
+    def test_sudoku_solution_is_a_matrix_of_numbers(self):      
+      solver = AlgorithmBruteForce()
       sudoku_solved = [['A', 'A', 'A', 6, 7, 8, 9, 1, 2], 
                       [6, 7, 2, 1, 9, 5, 3, 4, 8], 
                       [1, 9, 8, 3, 4, 2, 5, 6, 7], 
@@ -58,65 +44,22 @@ class TestBruteForceAlgorithm(unittest.TestCase):
                       [9, 6, 1, 5, 'B', 7, 2, 8, 4], 
                       [2, 8, 7, 4, 1, 9, 6, 3, 5], 
                       [3, 4, 5, 2, 8, 6, 1, 7, 9]]
-      self.assertNotEqual(sudoku_solved, solve(sudoku_to_solve))
+
+      self.assertNotEqual(sudoku_solved, solver.solve(self.sudoku_to_solve))
     
     def test_sudoku_is_solved_when_given_sudoku_has_zero_in_each_cell(self):
-      sudoku_to_solve = [[0, 0, 0, 0, 0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0, 0, 0, 0, 0]]      
-
-      self.assertIsNotNone(solve(sudoku_to_solve))
+      solver = AlgorithmBruteForce()     
+      self.assertNotEqual(self.sudoku_emty, solver.solve(self.sudoku_to_solve))
     
-    def test_sudoku_cannot_be_solved_when_given_sudoku_contains_more_than_9_rows(self):      
-      sudoku_to_solve = [[5, 3, 0, 0, 7, 0, 0, 0, 0],
-                [6, 0, 0, 1, 9, 5, 0, 0, 0],
-                [0, 9, 8, 0, 0, 0, 0, 6, 0],
-                [8, 0, 0, 0, 6, 0, 0, 0, 3],
-                [4, 0, 0, 8, 0, 3, 0, 0, 1],
-                [7, 0, 0, 0, 2, 0, 0, 0, 6],
-                [0, 6, 0, 0, 0, 0, 2, 8, 0],
-                [0, 0, 0, 4, 1, 9, 0, 0, 0],
-                [0, 0, 0, 0, 8, 0, 0, 7, 0],
-                [2, 1, 1, 1, 8, 1, 1, 7, 0]]
-      
-      sudoku_solved = [[5, 3, 4, 6, 7, 8, 9, 1, 2], 
-                      [6, 7, 2, 1, 9, 5, 3, 4, 8], 
-                      [1, 9, 8, 3, 4, 2, 5, 6, 7], 
-                      [8, 5, 9, 7, 6, 1, 4, 2, 3], 
-                      [4, 2, 6, 8, 5, 3, 7, 9, 1], 
-                      [7, 1, 3, 9, 2, 4, 8, 5, 6], 
-                      [9, 6, 1, 5, 3, 7, 2, 8, 4], 
-                      [2, 8, 7, 4, 1, 9, 6, 3, 5], 
-                      [3, 4, 5, 2, 8, 6, 1, 7, 9]]
-      self.assertNotEqual(sudoku_solved, solve(sudoku_to_solve))
+    def test_sudoku_returns_empty_grid_when_given_sudoku_is_not_resolvable(self):      
+      solver = AlgorithmBruteForce()
+      sudoku_with_more_rows = '5300700006001999500009800006080006000340080300170002000606000028000041900000008007'
+      self.assertEqual(self.sudoku_emty, solver.solve(sudoku_with_more_rows))
 
-    def test_easy_sudoku_is_solved_correctly(self):      
-      sudoku_to_solve = [[5, 3, 4, 6, 7, 8, 9, 1, 2],
-                [6, 7, 2, 1, 9, 5, 3, 4, 8], 
-                [1, 9, 8, 3, 4, 2, 5, 6, 7], 
-                [8, 5, 9, 7, 6, 1, 4, 2, 3], 
-                [4, 2, 6, 8, 5, 3, 7, 9, 1],
-                [7, 0, 0, 0, 2, 0, 0, 0, 6],
-                [0, 6, 0, 0, 0, 0, 2, 8, 0],
-                [0, 0, 0, 4, 1, 9, 0, 0, 0],
-                [0, 0, 0, 0, 8, 0, 0, 7, 0]]
-      
-      sudoku_solved = [[5, 3, 4, 6, 7, 8, 9, 1, 2], 
-                      [6, 7, 2, 1, 9, 5, 3, 4, 8], 
-                      [1, 9, 8, 3, 4, 2, 5, 6, 7], 
-                      [8, 5, 9, 7, 6, 1, 4, 2, 3], 
-                      [4, 2, 6, 8, 5, 3, 7, 9, 1], 
-                      [7, 1, 3, 9, 2, 4, 8, 5, 6], 
-                      [9, 6, 1, 5, 3, 7, 2, 8, 4], 
-                      [2, 8, 7, 4, 1, 9, 6, 3, 5], 
-                      [3, 4, 5, 2, 8, 6, 1, 7, 9]]
-      self.assertEqual(sudoku_solved, solve(sudoku_to_solve))    
+    def test_easy_sudoku_is_solved_correctly(self):
+      solver = AlgorithmBruteForce()
+      sudoku_easy_to_solve = '534678912600195000098000060800060003426853001700020006060000280000419000000086179'
+      self.assertEqual(self.sudoku_solved, solver.solve(sudoku_easy_to_solve))    
 
 if __name__ == '__main__':
     unittest.main()
