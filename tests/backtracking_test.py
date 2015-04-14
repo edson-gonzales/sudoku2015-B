@@ -39,7 +39,7 @@ class BacktrackingTest(unittest.TestCase):
 			[7,4,5,2,8,6,3,1,9]
 			]
 		backtracking = Backtracking()
-		self.assertTrue(backtracking.used_in_row(grid,0,9))
+		self.assertTrue(backtracking.is_used_in_row(grid,0,9))
 	def test_return_true_when_a_number_is_used_in_the_last_row(self):
 		grid = [
 			[3,1,6,5,7,8,4,9,2],
@@ -53,7 +53,7 @@ class BacktrackingTest(unittest.TestCase):
 			[7,4,5,2,8,6,3,1,9]
 			]
 		backtracking = Backtracking()
-		self.assertTrue(backtracking.used_in_row(grid,8,3))
+		self.assertTrue(backtracking.is_used_in_row(grid,8,3))
 	def test_return_false_when_a_number_is_not_used_in_a_row(self):
 		grid = [
 			[3,1,6,5,7,8,4,9,2],
@@ -67,7 +67,7 @@ class BacktrackingTest(unittest.TestCase):
 			[7,4,5,2,8,6,3,1,9]
 			]
 		backtracking = Backtracking()
-		self.assertFalse(backtracking.used_in_row(grid,1,8))
+		self.assertFalse(backtracking.is_used_in_row(grid,1,8))
 	def test_return_false_when_a_number_is_not_used_in_the_last_row(self):
 		grid = [
 			[3,1,6,5,7,8,4,9,2],
@@ -81,7 +81,7 @@ class BacktrackingTest(unittest.TestCase):
 			[7,4,5,2,8,6,0,0,9]
 			]
 		backtracking = Backtracking()
-		self.assertFalse(backtracking.used_in_row(grid,8,3))
+		self.assertFalse(backtracking.is_used_in_row(grid,8,3))
 
 	def test_return_true_when_a_number_is_used_in_a_col(self):
 		grid = [
@@ -96,7 +96,7 @@ class BacktrackingTest(unittest.TestCase):
 			[7,4,5,2,8,6,3,1,9]
 			]
 		backtracking = Backtracking()
-		self.assertTrue(backtracking.used_in_col(grid,0,9))
+		self.assertTrue(backtracking.is_used_in_col(grid,0,9))
 	def test_return_true_when_a_number_is_used_in_the_last_col(self):
 		grid = [
 			[3,1,6,5,7,8,4,9,2],
@@ -110,7 +110,7 @@ class BacktrackingTest(unittest.TestCase):
 			[7,4,5,2,8,6,3,1,9]
 			]
 		backtracking = Backtracking()
-		self.assertTrue(backtracking.used_in_col(grid,8,3))
+		self.assertTrue(backtracking.is_used_in_col(grid,8,3))
 	def test_return_false_when_a_number_is_not_used_in_a_col(self):
 		grid = [
 			[3,1,6,5,7,8,4,9,2],
@@ -124,7 +124,7 @@ class BacktrackingTest(unittest.TestCase):
 			[7,4,5,2,8,6,3,1,9]
 			]
 		backtracking = Backtracking()
-		self.assertFalse(backtracking.used_in_col(grid,1,8))
+		self.assertFalse(backtracking.is_used_in_col(grid,1,8))
 	def test_return_false_when_a_number_is_not_used_in_the_last_col(self):
 		grid = [
 			[3,1,6,5,7,8,4,9,2],
@@ -138,7 +138,7 @@ class BacktrackingTest(unittest.TestCase):
 			[7,4,5,2,8,6,0,0,9]
 			]
 		backtracking = Backtracking()
-		self.assertFalse(backtracking.used_in_col(grid,8,3))
+		self.assertFalse(backtracking.is_used_in_col(grid,8,3))
 
 	def test_return_true_when_a_number_is_used_in_a_box(self):
 		grid = [
@@ -153,7 +153,7 @@ class BacktrackingTest(unittest.TestCase):
 			[7,4,5,2,8,6,3,1,9]
 			]
 		backtracking = Backtracking()
-		self.assertTrue(backtracking.used_in_box(grid,6,3,1))
+		self.assertTrue(backtracking.is_used_in_box(grid,6,3,1))
 	def test_return_false_when_a_number_is_not_used_in_a_box(self):
 		grid = [
 			[3,1,6,5,7,8,4,9,2],
@@ -167,7 +167,7 @@ class BacktrackingTest(unittest.TestCase):
 			[7,4,5,2,0,6,3,1,9]
 			]
 		backtracking = Backtracking()
-		self.assertFalse(backtracking.used_in_box(grid,6,3,8))
+		self.assertFalse(backtracking.is_used_in_box(grid,6,3,8))
 	
 	def test_return_true_when_a_number_is_valid_in_a_sudoku_grid_position(self):
 		grid = [
