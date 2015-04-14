@@ -62,7 +62,7 @@ class PeterNorvig():
         values -- initial dict with values
         square -- square positions
         digit --  selected digit
-        return updatedvalues, except return False if a contradiction is detected.
+        return updated values, except return False if a contradiction is detected.
         """
         other_values = values[square].replace(digit, '')
         if all(self.eliminate(values, square, temp_digit) for temp_digit in other_values):
@@ -94,36 +94,38 @@ class PeterNorvig():
             dplaces = [square for square in unit if digit in values[square]]
             if len(dplaces) == 0:
                 return False
-            elif len(dplaces) == 1:
-                if not self.assign(values, dplaces[0], digit):
-                    return False
+            elif len(dplaces) == 1 and not self.assign(values, dplaces[0], digit):
+                return False
         return values
 
     def search(self, values):
         """
         Using depth-first search and propagation, try all possible values.
-        return dict: updates possible values dict after search algorithm.
 
         Keyword arguments:
         values -- updates possible values dict.
+        return updated dict with possible values after search algorithm.
         """
         if values is False:
             return False
-        if all(len(values[s]) == 1 for s in self.squares):
+        if all(len(values[square]) == 1 for square in self.squares):
             return values
-        n,s = min((len(values[s]), s) for s in self.squares if len(values[s]) > 1)
-        return self.some(self.search(self.assign(values.copy(), s, d))
-                    for d in values[s])
+        unfilled, square = min((len(values[square]), square)
+                          for square in self.squares if len(values[square]) > 1)
 
-    def some(self, seq):
+        return self.get_true_element(self.search(
+            self.assign(values.copy(), square, digit)) for digit in values[square])
+
+    def get_true_element(self, sequence):
         """
-        Return boolean: return the element that is true.
+        return the element that is true.
 
         Keyword arguments:
         seq -- values dict.
         """
-        for e in seq:
-            if e: return e
+        for element in sequence:
+            if element:
+                return element
         return False
 
     def solve(self, grid):
