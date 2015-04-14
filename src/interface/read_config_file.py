@@ -4,19 +4,12 @@ class ReadConfigFile():
 	def __init__(self, fileconfig):	
 			
 			
-			xmld = etree.parse(fileconfig)				
-			self.root = xmld.getroot()
-			#get the outputfile configuration
-			self.getoutputfile()
-			#get the list of available algorithms
-			self.getlistofalgorithms()
-			#get the list of available levels
-			self.getlistofgenerationlevelsnames()
-			# get details of levelgeneration
-			self.getdetailsofgenerationlevels("Hard")
+			self.xmld = etree.parse(fileconfig)				
+			self.root = self.xmld.getroot()
+
 		
 
-	def getoutputfile(self):
+	def get_output_file(self):
 		"""	
 		Returns the outputfile path, name and extension values from config file
 		listoutput: variable to assign all values read from config file
@@ -32,10 +25,10 @@ class ReadConfigFile():
 		listoutput.append(name)
 		listoutput.append(extension)
 
-		#print(listoutput)
+		
 		return listoutput
 
-	def listoffiletypessupported(self):
+	def list_of_file_types_supported(self):
 		"""		
 		Returns a list with all files types values supported, it will be also get from config file
 		listtypes: variable of list type, it will have assigned all supported files, this info is read from config file
@@ -48,7 +41,7 @@ class ReadConfigFile():
 			#listypes.append(typevalue)
 		
 
-	def getlistofalgorithms(self):
+	def get_list_of_algorithms(self):
 		"""
 		Returns a list with all availables algorithms from config file, and the first item will always return
 		the active algorithm set for the game.
@@ -68,7 +61,7 @@ class ReadConfigFile():
 		
 		return listalgorithms
 	
-	def getlistofgenerationlevelsnames(self):
+	def get_list_of_generation_levels_names(self):
 
 		"""
 		Returns a list with all availables levels names from config file, and the first item will always return
@@ -90,7 +83,7 @@ class ReadConfigFile():
 		
 		return listlevels
 
-	def getdetailsofgenerationlevels(self, levelname):
+	def get_details_of_generation_levels(self, levelname):
 
 		"""
 		method: returns a list with the details of each level specified. the details returned are level name, top limit, bottom limit,

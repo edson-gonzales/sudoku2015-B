@@ -17,9 +17,9 @@ class Interface(Frame):
 
 		Frame.__init__(self, main)
 		self.main = main
-		self.InitWindow()
+		self.Init_Window()
 
-	def InitWindow(self):
+	def Init_Window(self):
 		
 		"""
 		The function will contain all objects (labels, buttons, text areas and so on) to be displayed in the window and also here has defined the size of the window
@@ -32,29 +32,11 @@ class Interface(Frame):
 
 		main.geometry("800x500+100+100")
 		main.title("Sudoku Game Interface")
-
 		
-		#buttons sections
-		#settings
-		settingsbutton = Button(main, text = "Settings", width = 10, heigh = 2, command = self.settings)
-		settingsbutton.place(x = 10, y = 10)
-
-		# generate button
-		generatebutton = Button(main,text = "Generate", width = 10, heigh = 2)
-		generatebutton.place(x = 10, y = 60)
-
-		# Solve button
-		solvebutton = Button(main, text = "Solve", width = 10, heigh = 2)
-		solvebutton.place(x = 10, y = 120)
-
-		# Solve button
-		savebutton = Button(main, text = "Save", width = 10, heigh = 2)
-		savebutton.place(x = 10, y = 180)
-
-		# close button
-		closebutton = Button(main, text = "Close", width = 10, heigh = 2, command = self.quit)
-		closebutton.place(x = 10, y = 240)
-
+		#buttons section
+		self.show_buttons()
+		
+		
 		#canvas to show the game
 		canvas_game_area = Canvas(main, height = 400, width = 400, bg = "white")
 		canvas_game_area.place(x = 150, y = 10)
@@ -66,12 +48,38 @@ class Interface(Frame):
 		main.mainloop()
 
 
+	def show_buttons(self):
+		"""
+		funtions will show the all available buttons  in the UI
+		
+		"""
+		settingsbutton = Button(self.main, text = "Settings", width = 10, heigh = 2, command = self.settings)
+		settingsbutton.place(x = 10, y = 10)
+
+		# generation button	
+		generatebutton = Button(self.main,text = "Generate", width = 10, heigh = 2)
+		generatebutton.place(x = 10, y = 60)
+
+		# solve button
+		solvebutton = Button(self.main, text = "Solve", width = 10, heigh = 2)
+		solvebutton.place(x = 10, y = 120)
+
+		# save button
+		savebutton = Button(main, text = "Save", width = 10, heigh = 2)
+		savebutton.place(x = 10, y = 180)
+
+		# close button
+		closebutton = Button(main, text = "Close", width = 10, heigh = 2, command = self.quit)
+		closebutton.place(x = 10, y = 240)
+
+
+
 	def settings(self):
 		"""
 		the functions invokes to SettingsGame class to displays Soduko Configuration setting window
 		"""
 
-		settings=SettingsGame()
+		settings = SettingsGame(self.main)
 
 
 	def quit(self):
