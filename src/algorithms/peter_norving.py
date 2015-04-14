@@ -3,24 +3,26 @@ class PeterNorvig():
     def __init__(self):
         self.digits = '123456789'
         self.rows = 'ABCDEFGHI'
-        self.cols = self.digits
-        self.squares = self.cross(self.rows, self.cols)
-        self.unitlist = ([self.cross(self.rows, c) for c in self.cols] +
-                [self.cross(r, self.cols) for r in self.rows] +
-                [self.cross(rs, cs) for rs in ('ABC','DEF','GHI') for cs in ('123','456','789')])
-        self.units = dict((s, [u for u in self.unitlist if s in u])
-                         for s in self.squares)
-        self.peers = dict((s, set(sum(self.units[s],[]))-set([s]))
-                         for s in self.squares)
+        self.colums = self.digits
+        self.squares = self.cross(self.rows, self.colums)
+        self.unitlist = ([self.cross(self.rows, colum) for colum in self.colums] +
+                        [self.cross(row, self.colums) for row in self.rows] +
+                        [self.cross(row_square, colum_square)
+                        for row_square in ('ABC', 'DEF', 'GHI')
+                        for colum_square in ('123', '456', '789')])
+        self.units = dict((square, [unit for unit in self.unitlist if square in unit])
+                     for square in self.squares)
+        self.peers = dict((square, set(sum(self.units[square], [])) - set([square]))
+                         for square in self.squares)
 
     def cross(self, key_list, value_list):
         """
         Cross product of elements in key_list and elements in value_list.
 
         Keyword arguments:
-        key_list -- Mostly this will be the row values.
-        value_list -- Mostly this will be the colum values.
-        Returns the grid with the filled coordinates.
+        key_list -- Mostly this will be the row values. i.e  1, 2, 3,etc
+        value_list -- Mostly this will be the colum values. i.e A, B ,C, etc
+        Returns the grid with the filled coordinates crossed, i.e.  [1A, 2A ].
         """
         return [key + value for key in key_list for value in value_list]
 
@@ -31,7 +33,7 @@ class PeterNorvig():
 
         Keyword arguments:
         param grid -- Dict with initial values.
-        return a dictionarie Grid with all the possible values.
+        return a dictionarie with all the possible values per square.
         """
         values = dict((square, self.digits) for square in self.squares)
         for square,digit in self.grid_values(grid).items():
@@ -41,28 +43,29 @@ class PeterNorvig():
 
     def grid_values(self, grid):
         """
-        Convert grid into a dict of {square: char} with '0' or '.' for empties.
-        return dict: grid dict with the values.
+        Convert grid game into a dict of {square: char} with '0' for empties.
 
         Keyword arguments:
-        grid -- skeleton grid
+        grid -- grid skeleton
+        return grid dict with the filled values ready to play.
         """
-        chars = [c for c in grid if c in self.digits or c in '0.']
+        chars = [colum for colum in grid if colum in self.digits or colum in '0']
         assert len(chars) == 81
         return dict(zip(self.squares, chars))
 
     def assign(self, values, square, digit):
         """
-        Eliminate all the other values (except the sent digit) from values[square] and propagate.
-        Return values, except return False if a contradiction is detected.
+        Eliminate all the other values (except the sent digit)
+        from values[square] and then propagate.
 
         Keyword arguments:
-        values -- initial dict
-        square -- square position
-        digit --  selected digits
+        values -- initial dict with values
+        square -- square positions
+        digit --  selected digit
+        return updatedvalues, except return False if a contradiction is detected.
         """
         other_values = values[square].replace(digit, '')
-        if all(self.eliminate(values, square, d2) for d2 in other_values):
+        if all(self.eliminate(values, square, temp_digit) for temp_digit in other_values):
             return values
         else:
             return False
@@ -70,12 +73,12 @@ class PeterNorvig():
     def eliminate(self, values, square, digit):
         """
         Eliminate digit from values[square]; propagate when values or places <= 2.
-        Return values, except return False if a contradiction is detected.
 
         Keyword arguments:
         values -- initial dic
-        square -- square position
+        square -- square positions
         digit -- digit values
+        return updated values, except return False if a contradiction is detected.
         """
         if digit not in values[square]:
             return values
@@ -83,11 +86,12 @@ class PeterNorvig():
         if len(values[square]) == 0:
             return False
         elif len(values[square]) == 1:
-            d2 = values[square]
-            if not all(self.eliminate(values, s2, d2) for s2 in self.peers[square]):
+            temp_digit = values[square]
+            if not all(self.eliminate(values, temp_square, temp_digit)
+                       for temp_square in self.peers[square]):
                 return False
-        for u in self.units[square]:
-            dplaces = [square for square in u if digit in values[square]]
+        for unit in self.units[square]:
+            dplaces = [square for square in unit if digit in values[square]]
             if len(dplaces) == 0:
                 return False
             elif len(dplaces) == 1:
