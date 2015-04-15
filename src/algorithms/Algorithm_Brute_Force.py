@@ -3,21 +3,21 @@ import random
 
 class AlgorithmBruteForce(object):
 
-    def __init__(self):
-        """
-        EMPTY_SUDOKU -- empty grid with dimension 9x9.
-        DIMENSION -- grid dimension expected, to load the grid from a string.
-        """
+    def __init__(self):        
+        # EMPTY_SUDOKU -- empty grid with dimension 9x9.
         self.EMPTY_SUDOKU = [[0] * 9] * 9
+        # DIMENSION -- grid dimension expected, to load the grid from a string.
         self.DIMENSION = 9
 
     def conflict(self, (row1, col1), (row2, col2)):
         """
-        Verifies if there is a conflict with given values.
+        Verifies if there is a conflict with given Columns.
+
         row1 -- row to verify if there is a conflic
         row2 -- row to verify if there is a conflic
         col1 -- column to verify if there is a conflic
         col2 -- column to verify if there is a conflic
+        Return -- boolean value, true = conflic false = no conflict
         """
         is_same_cell = row1 == row2 and col1 == col2
         if row1 == row2:
@@ -30,7 +30,7 @@ class AlgorithmBruteForce(object):
 
     def setminus(self, list1, list2):
         """
-        Looks for a value in Lst1 that is not in Lst2 and returns it.
+        Looks for a value in List1 that is not in List2 and returns it.
 
         list1 -- List of values to be verified
         list2 -- List of not allowed values
@@ -40,7 +40,7 @@ class AlgorithmBruteForce(object):
     def nextcell(self, (pos_row, pos_col)):
         """
         Finds next cell to fill, and returns 0 if the position in the row
-        or column reach the limit of it that is pos 8 in the arra and would be
+        or column reach the limit of it that is pos 8 in the array and would be
         the pos 9 in the sudoku
 
         pos_row -- current cell position in the row
@@ -56,9 +56,10 @@ class AlgorithmBruteForce(object):
         """ Solves the given sudoku.
         Solves a sudoku verifying the possible candidates per position.
         A solved sudoku is returned, just if sudoku has a valid result.
-        If sudoku is not resolvable an empty list is returned.
+        If sudoku is not resolvable a grid with all values as zero is returned.
 
-        sudoku -- given sudoku in tring format
+        sudoku -- given sudoku in string format
+        Return -- grid populated with values that satisfy each row, column and quadrant
         """
 
         # loadding the sudoku to a matrix into grid.
@@ -86,7 +87,7 @@ class AlgorithmBruteForce(object):
 
         pos -- current cell position, example: (row_pos, col_pos)
         sudoku -- grid to iterate and populate with allowed values
-
+        Return -- grid populated with values that satisfy each row, column and quadrant
         """
         if sudoku[pos[0]][pos[1]] != 0:
             if pos != (8, 8):
@@ -108,10 +109,11 @@ class AlgorithmBruteForce(object):
     def getAllowedValues(self, pos, sudoku):
         """
         Get allowed values and makes sure there are no conflicts within row,
-        coulmn and quadrant, reviewing cells randomly.
+        column and quadrant, reviewing cells randomly.
 
-        pos -- current cell position, (row_pos, col_pos)
+        pos -- current cell position, (row_pos, col_pos).
         sudoku -- grid to iterate and verify which values are allowed.
+        Return -- int array with alllowed values without conflicts.
         """
         conflicts = set([(row, column) for row in range(9) for column in
                         range(9) if (row, column) != pos
@@ -119,5 +121,5 @@ class AlgorithmBruteForce(object):
         notallowed = set([sudoku[row][column] for (row, column) in
                          conflicts if sudoku[row][column] != 0])
         values = self.setminus(range(1, 10), notallowed)
-        random.shuffle(values)
+        random.shuffle(values)  
         return values
