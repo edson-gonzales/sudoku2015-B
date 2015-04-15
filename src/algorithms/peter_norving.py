@@ -1,19 +1,20 @@
-class PeterNorvig():
+class PeterNorvig:
 
     def __init__(self):
         self.digits = '123456789'
         self.rows = 'ABCDEFGHI'
         self.colums = self.digits
         self.squares = self.cross(self.rows, self.colums)
-        self.unitlist = ([self.cross(self.rows, colum) for colum in self.colums] +
-                        [self.cross(row, self.colums) for row in self.rows] +
-                        [self.cross(row_square, colum_square)
-                        for row_square in ('ABC', 'DEF', 'GHI')
-                        for colum_square in ('123', '456', '789')])
-        self.units = dict((square, [unit for unit in self.unitlist if square in unit])
-                     for square in self.squares)
-        self.peers = dict((square, set(sum(self.units[square], [])) - set([square]))
-                         for square in self.squares)
+        self.unitlist = [self.cross(self.rows, colum) for colum in
+                         self.colums] + [self.cross(row, self.colums)
+                for row in self.rows] + [self.cross(row_square,
+                colum_square) for row_square in ('ABC', 'DEF', 'GHI')
+                for colum_square in ('123', '456', '789')]
+        self.units = dict((square, [unit for unit in self.unitlist
+                          if square in unit]) for square in
+                          self.squares)
+        self.peers = dict((square, set(sum(self.units[square], []))
+                          - set([square])) for square in self.squares)
 
     def cross(self, key_list, value_list):
         """
@@ -24,6 +25,7 @@ class PeterNorvig():
         value_list -- Mostly this will be the colum values. i.e A, B ,C, etc
         Returns the grid with the filled coordinates crossed, i.e.  [1A, 2A ].
         """
+
         return [key + value for key in key_list for value in value_list]
 
     def parse_grid(self, grid):
@@ -33,11 +35,13 @@ class PeterNorvig():
 
         Keyword arguments:
         param grid -- Dict with initial values.
-        return a dictionarie with all the possible values per square.
+        return a dictionary with all the possible values per square.
         """
+
         values = dict((square, self.digits) for square in self.squares)
-        for square,digit in self.grid_values(grid).items():
-            if digit in self.digits and not self.assign(values, square, digit):
+        for (square, digit) in self.grid_values(grid).items():
+            if digit in self.digits and not self.assign(values, square,
+                    digit):
                 return False
         return values
 
@@ -49,7 +53,9 @@ class PeterNorvig():
         grid -- grid skeleton
         return grid dict with the filled values ready to play.
         """
-        chars = [colum for colum in grid if colum in self.digits or colum in '0']
+
+        chars = [colum for colum in grid if colum in self.digits
+                 or colum in '0']
         assert len(chars) == 81
         return dict(zip(self.squares, chars))
 
@@ -64,8 +70,10 @@ class PeterNorvig():
         digit --  selected digit
         return updated values, except return False if a contradiction is detected.
         """
+
         other_values = values[square].replace(digit, '')
-        if all(self.eliminate(values, square, temp_digit) for temp_digit in other_values):
+        if all(self.eliminate(values, square, temp_digit)
+               for temp_digit in other_values):
             return values
         else:
             return False
@@ -80,6 +88,7 @@ class PeterNorvig():
         digit -- digit values
         return updated values, except return False if a contradiction is detected.
         """
+
         if digit not in values[square]:
             return values
         values[square] = values[square].replace(digit, '')
@@ -91,10 +100,12 @@ class PeterNorvig():
                        for temp_square in self.peers[square]):
                 return False
         for unit in self.units[square]:
-            dplaces = [square for square in unit if digit in values[square]]
+            dplaces = [square for square in unit if digit
+                       in values[square]]
             if len(dplaces) == 0:
                 return False
-            elif len(dplaces) == 1 and not self.assign(values, dplaces[0], digit):
+            elif len(dplaces) == 1 and not self.assign(values,
+                    dplaces[0], digit):
                 return False
         return values
 
@@ -106,15 +117,17 @@ class PeterNorvig():
         values -- updates possible values dict.
         return updated dict with possible values after search algorithm.
         """
+
         if values is False:
             return False
         if all(len(values[square]) == 1 for square in self.squares):
             return values
-        unfilled, square = min((len(values[square]), square)
-                          for square in self.squares if len(values[square]) > 1)
+        (unfilled, square) = min((len(values[square]), square)
+                                 for square in self.squares
+                                 if len(values[square]) > 1)
 
-        return self.get_true_element(self.search(
-            self.assign(values.copy(), square, digit)) for digit in values[square])
+        return self.get_true_element(self.search(self.assign(values.copy(),
+                square, digit)) for digit in values[square])
 
     def get_true_element(self, sequence):
         """
@@ -123,6 +136,7 @@ class PeterNorvig():
         Keyword arguments:
         seq -- values dict.
         """
+
         for element in sequence:
             if element:
                 return element
@@ -135,4 +149,5 @@ class PeterNorvig():
         Keyword arguments:
         grid -- initial grid to solve.
         """
+
         return self.search(self.parse_grid(grid))
