@@ -16,42 +16,47 @@ class PeterNorvig:
         self.peers = dict((square, set(sum(self.units[square], []))
                           - set([square])) for square in self.squares)
 
-    def cross(self, key_list, value_list):
+    def cross(self, row_key_list, column_key_list):
         """
-        Cross product of elements in key_list and elements in value_list.
+        Cross product of elements in row_key_list and elements in column_key_list.
 
         Keyword arguments:
-        key_list -- Mostly this will be the row values. i.e  1, 2, 3,etc
-        value_list -- Mostly this will be the colum values. i.e A, B ,C, etc
-        Returns the grid with the filled coordinates crossed, i.e.  [1A, 2A ].
+        row_key_list -- Mostly this will be the row values. i.e  1, 2, 3,etc
+        column_key_list -- Mostly this will be the column values. i.e A, B ,C, etc
+        returns list with the filled keys crossed that will be used as
+        coordinates, i.e.  [1A, 2A ].
         """
 
-        return [key + value for key in key_list for value in value_list]
+        return [key + value for key in row_key_list for value in column_key_list]
 
     def parse_grid(self, grid):
         """
-        Convert grid to a dict of possible values, {square: digits}, or
-        return False if a contradiction is detected.
+        Converts grid game string into a dictionary of possible values,
+        {square: digits}, or return False if a contradiction is detected.
 
         Keyword arguments:
-        param grid -- Dict with initial values.
-        return a dictionary with all the possible values per square.
+        grid -- String that contains the sudoku game, i.e:
+                3000800000007000051000000000000003600020 .......
+        returns a dictionary with all the possible values per square. i.e:
+               {'I6': '1379', 'H9': '679', 'I2': '12369' ........
         """
 
         values = dict((square, self.digits) for square in self.squares)
-        for (square, digit) in self.grid_values(grid).items():
+        for (square, digit) in list(self.create_game_dict(grid).items()):
             if digit in self.digits and not self.assign(values, square,
                     digit):
                 return False
         return values
 
-    def grid_values(self, grid):
+    def create_game_dict(self, grid):
         """
-        Convert grid game into a dict of {square: char} with '0' for empties.
+        Convert grid game string into a dictionary  of {square: char}
+        with '0' for empties.
 
         Keyword arguments:
-        grid -- grid skeleton
-        return grid dict with the filled values ready to play.
+        grid -- String that contains the sudoku game, i.e:
+                3000800000007000051000000000000003600020 .......
+        returns grid dict with the filled values ready to play.
         """
 
         chars = [colum for colum in grid if colum in self.digits
@@ -61,14 +66,14 @@ class PeterNorvig:
 
     def assign(self, values, square, digit):
         """
-        Eliminate all the other values (except the sent digit)
-        from values[square] and then propagate.
+        Eliminate the list of "other_values"(possible solutions per square)
+        except the sent digit from values[square] and then propagate.
 
         Keyword arguments:
-        values -- initial dict with values
-        square -- square positions
-        digit --  selected digit
-        return updated values, except return False if a contradiction is detected.
+        values -- initial dictionary with values.
+        square -- square positions.
+        digit --  selected digit.
+        returns updated values, except return False if a contradiction is detected.
         """
 
         other_values = values[square].replace(digit, '')

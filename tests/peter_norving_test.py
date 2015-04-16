@@ -68,12 +68,12 @@ class PeterNorvingTest(unittest.TestCase):
 
     def test_valid_length_game_generates_the_values_dictionarie(self):
         actual_values_legth = \
-            len(self.peter_norving_test.grid_values(self.valid_test_game))
+            len(self.peter_norving_test.create_game_dict(self.valid_test_game))
         self.assertEqual(actual_values_legth, self.expected_length)
 
     def test_invalid_length_game_generates_an_assertion_error(self):
         with self.assertRaises(AssertionError):
-            self.peter_norving_test.grid_values(self.invalid_test_game_length)
+            self.peter_norving_test.create_game_dict(self.invalid_test_game_length)
 
 if __name__ == '__main__':
     unittest.main()
