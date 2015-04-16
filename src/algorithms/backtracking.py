@@ -42,7 +42,7 @@ class Backtracking(object):
 
         int[9][9] grid -- the grid with the current sudoku values.
         int row -- row number in the grid.
-        int num -- number to eval in the row.
+        int num -- number to evaluate in the row.
         return boolean -- return True when is already used in the row or False when
             is not used.    
         """
@@ -57,7 +57,7 @@ class Backtracking(object):
 
         int[9][9] grid -- the grid with the current sudoku values.
         int col -- column number in the grid.
-        int num -- number to eval in the col.
+        int num -- number to evaluate in the col.
         return boolean -- return True when is already used in the column or False 
             when is not used.
         """
@@ -73,7 +73,7 @@ class Backtracking(object):
         int[9][9] grid -- the grid with the current sudoku values.
         int box_start_row -- row number in the grid where the box 3x3 starts.
         int box_start_col -- column number in the grid where the box 3x3 starts
-        int num -- number to eval in the box.
+        int num -- number to evaluate in the box.
         return boolean -- return True when is already used in the box3x3 or False
             when is not used.
         """
@@ -91,7 +91,7 @@ class Backtracking(object):
         int row -- The current row of the box where to check the number.
         int box_start_row -- row number in the grid where the box 3x3 starts.
         int box_start_col -- column number in the grid where the box 3x3 starts
-        int num -- number to eval in the box.
+        int num -- number to evaluate in the box.
         return boolean -- return True when is already used in the row of a box3x3 or False
             when is not used.
         """
@@ -101,14 +101,14 @@ class Backtracking(object):
         return False
 
     def is_safe(self, grid, row, col, num):
-        """ Function that eval a number *num* provided whether this is valid or not 
+        """ Function that evaluate a number *num* provided whether this is valid or not 
         in the provided *position [row,col]*.
 
         Keyword arguments
         int[9][9] grid-- the grid with the current sudoku values.
         int row -- row number in the grid.
         int col -- column number in the grid.
-        int num -- number to eval in the sudoku grid.
+        int num -- number to evaluate in the sudoku grid.
         return boolean -- return True when the number is valid or False in other case
         """
         return  (not self.is_used_in_row(grid, row, num) 
