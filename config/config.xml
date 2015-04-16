@@ -9,11 +9,11 @@
 				<Id>1</Id>
 				<Status>Inactive</Status>
 			</Algorithm>
-			<Algorithm name="PeterNovings">
+			<Algorithm name="Peter Novig's">
 				<Id>2</Id>
 				<Status>Active</Status>
 			</Algorithm>
-			<Algorithm name="Other">
+			<Algorithm name="BruteForce">
 				<Id>3</Id>
 				<Status>Inactive</Status>
 			</Algorithm>
