@@ -147,7 +147,7 @@ class PeterNorvig:
         the dictionary with solved values.
 
         Keyword arguments:
-        sequence -- values dict.
+        sequence -- values dictionary.
         """
 
         for element in sequence:
