@@ -1,8 +1,10 @@
-import unittest
+import unittest, coverage
 
 import sys
 
 sys.path.append("../../sudoku2015-B")
+cov = coverage.coverage()
+cov.start()
 
 from backtracking_test import BacktrackingTest
 
@@ -13,3 +15,7 @@ alltests = unittest.TestSuite([backtracking_suite])
 
 unittest.TextTestRunner(verbosity=1).run(alltests)
 
+cov.stop()
+cov.save()
+
+cov.html_report()
