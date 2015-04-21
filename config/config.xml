@@ -1,7 +1,7 @@
 <Settings>
 		<Output>
 			<Path>d:\SudokuGame</Path>
-			<Name>Sudoku</Name>									
+			<Name>Sudoku.txt</Name>									
 		</Output>
 		<Solve>
 			<Algorithm name="Backtracking">
