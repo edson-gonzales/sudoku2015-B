@@ -9,48 +9,49 @@ class AlgorithmBruteForce(object):
         # DIMENSION -- grid dimension expected, to load the grid from a string.
         self.DIMENSION = 9
 
-    def conflict(self, (row1, col1), (row2, col2)):
+    def has_conflict(self, (first_row, first_column), (second_row, second_col)):
         """
         Verifies if there is a conflict with given Columns.
 
-        row1 -- row to verify if there is a conflic
-        row2 -- row to verify if there is a conflic
-        col1 -- column to verify if there is a conflic
-        col2 -- column to verify if there is a conflic
-        Return -- boolean value, true = conflic false = no conflict
+        first_row -- int, first row position
+        second_row -- int, second row position
+        first_column -- int, first column position
+        second_col -- int, second column position
+        Return -- boolean value, true = conflict; false = no conflict
         """
-        is_same_cell = row1 == row2 and col1 == col2
-        if row1 == row2:
+        is_same_cell = first_row == second_row and first_column == second_col
+        if first_row == second_row:
             return True
-        if col1 == col2:
+        if first_column == second_col:
             return True
-        if row1 / 3 == row2 / 3 and col1 / 3 == col2 / 3 and not is_same_cell:
+        if first_row / 3 == second_row / 3 and first_column / 3 == second_col / 3 and not is_same_cell:
             return True
         return False
 
-    def setminus(self, list1, list2):
+    def set_minus(self, fist_list, second_list):
         """
-        Looks for a value in List1 that is not in List2 and returns it.
+        Looks for value(s) in fist_list that is not in second_list and returns it.
 
-        list1 -- List of values to be verified
-        list2 -- List of not allowed values
+        fist_list -- array, List of values to be verified
+        second_list -- array, List of not allowed values
+        Return -- Array with values of fist_list not present in second_list
         """
-        return [x for x in list1 if x not in list2]
+        return [x for x in fist_list if x not in second_list]
 
-    def nextcell(self, (pos_row, pos_col)):
+    def get_next_cell(self, (row_position, column_position)):
         """
         Finds next cell to fill, and returns 0 if the position in the row
         or column reach the limit of it that is pos 8 in the array and would be
         the pos 9 in the sudoku
 
-        pos_row -- current cell position in the row
-        pos_col -- current cell position in the column
+        row_position -- int, current cell position in the row
+        column_position -- int, current cell position in the column
         """
-        if pos_col == 8:
-            if pos_row == 8:
+        if column_position == 8:
+            if row_position == 8:
                 return (0, 0)
-            return (pos_row + 1, 0)
-        return (pos_row, pos_col + 1)
+            return (row_position + 1, 0)
+        return (row_position, column_position + 1)
 
     def solve(self, sudoku):
         """ Solves the given sudoku.
@@ -58,19 +59,21 @@ class AlgorithmBruteForce(object):
         A solved sudoku is returned, just if sudoku has a valid result.
         If sudoku is not resolvable a grid with all values as zero is returned.
 
-        sudoku -- given sudoku in string format
+        sudoku -- given sudoku in string format (81 numbers with spaces). Example:
+        '530070000600195000098000060800060003400803001700020006060000280000419000000080070'
         Return -- grid populated with values that satisfy each row, column and quadrant
         """
 
-        # loadding the sudoku to a matrix into grid.
-        grid = self.load_puzzle(sudoku)
-        return self.satisfy((0, 0), grid)
+        # loadding the sudoku into a grid.
+        grid = self.convert_puzzle_from_string_to_grid(sudoku)
+        return self.populate_grid_with_allowed_values((0, 0), grid)
 
-    def load_puzzle(self, puzzle_string):
+    def convert_puzzle_from_string_to_grid(self, puzzle_string):
         """ Converts given string to grid 9x9
 
         puzzle_string -- the given sudoku in a string format, that will be
-        converted to a grid.
+        converted to a grid. Example:
+        '530070000600195000098000060800060003400803001700020006060000280000419000000080070'
         Return int[9][9] -- a grid 9x9
         """
         list_of_numbers = [int(n) for n in puzzle_string]
@@ -80,46 +83,46 @@ class AlgorithmBruteForce(object):
                 * self.DIMENSION]
         return grid
 
-    def satisfy(self, pos, sudoku):
+    def populate_grid_with_allowed_values(self, position, sudoku):
         """
-        populates the allowed values into cell in the given position 'pos'
+        populates the allowed values into cell in the given position 'position'
         just if values satisfy the values in the row, column and quadrant
 
-        pos -- current cell position, example: (row_pos, col_pos)
+        position -- current cell position, example: (row_position, column_position)
         sudoku -- grid to iterate and populate with allowed values
         Return -- grid populated with values that satisfy each row, column and quadrant
         """
-        if sudoku[pos[0]][pos[1]] != 0:
-            if pos != (8, 8):
-                return self.satisfy(self.nextcell(pos), sudoku)
+        if sudoku[position[0]][position[1]] != 0:
+            if position != (8, 8):
+                return self.populate_grid_with_allowed_values(self.get_next_cell(position), sudoku)
             else:
                 return sudoku
 
-        values = self.getAllowedValues(pos, sudoku)
+        values = self.get_allowed_values(position, sudoku)
         if values == self.EMPTY_SUDOKU:
             return self.EMPTY_SUDOKU
         new = [row[:] for row in sudoku]
         for value in values:
-            new[pos[0]][pos[1]] = value
-            filled = self.satisfy(self.nextcell(pos), new)
+            new[position[0]][position[1]] = value
+            filled = self.populate_grid_with_allowed_values(self.get_next_cell(position), new)
             if filled != self.EMPTY_SUDOKU:
                 return filled
         return self.EMPTY_SUDOKU
 
-    def getAllowedValues(self, pos, sudoku):
+    def get_allowed_values(self, position, sudoku):
         """
         Get allowed values and makes sure there are no conflicts within row,
         column and quadrant, reviewing cells randomly.
 
-        pos -- current cell position, (row_pos, col_pos).
+        position -- current cell position, (row_pos, col_pos).
         sudoku -- grid to iterate and verify which values are allowed.
         Return -- int array with alllowed values without conflicts.
         """
         conflicts = set([(row, column) for row in range(9) for column in
-                        range(9) if (row, column) != pos
-                        and self.conflict(pos, (row, column))])
+                        range(9) if (row, column) != position
+                        and self.has_conflict(position, (row, column))])
         notallowed = set([sudoku[row][column] for (row, column) in
                          conflicts if sudoku[row][column] != 0])
-        values = self.setminus(range(1, 10), notallowed)
+        values = self.set_minus(range(1, 10), notallowed)
         random.shuffle(values)  
         return values
