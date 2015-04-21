@@ -10,8 +10,7 @@ class SettingsGame(Frame):
         """ Main function(constructor) -- creates the class attributes, and creates the tkinter frame instance, and
         invokes init_ window() function.
 
-        string self.configfile -- it has the config file location.
-        """
+        string self.configfile -- it has the config file location. """
         main = self.main = Toplevel(parent)
         self.file_config = '../../config/config.xml'        
 
@@ -31,8 +30,7 @@ class SettingsGame(Frame):
         # fill values in the output entry
         self.fill_values_in_the_output_file_entry()
 
-        # supported files types        
-        #self.list_of_supported_files_types()
+        # supported files types                
         self.save_output_file()
 
         #create a listbox to show all the available algorithms 
@@ -93,8 +91,7 @@ class SettingsGame(Frame):
     def fill_values_in_the_output_file_entry(self, custom_path=None):
         """ This function returns get_values_output_file.
 
-        string get_values_output_file -- it gets the value returned of get_output_file function from "readconfigfile" class.
-        """
+        string get_values_output_file -- it gets the value returned of get_output_file function from "readconfigfile" class. """
         get_values_output_file = ReadConfigFile(self.file_config).get_output_file()
         current_path = StringVar()
         current_file_name=StringVar()
@@ -110,8 +107,7 @@ class SettingsGame(Frame):
 
         list list_of_algorithms -- this gets the value returned from get_list_of_algorithms function of
         ReadConfigFile class.
-        listbox algorithms_listbox -- it will show all algorithms from list_of_algorithms list variable
-        """        
+        listbox algorithms_listbox -- it will show all algorithms from list_of_algorithms list variable. """        
         list_of_algorithms = ReadConfigFile(self.file_config).get_list_of_algorithms()      
         
         algorithms_listbox = Listbox(self.main, heigh = 4)
@@ -128,8 +124,7 @@ class SettingsGame(Frame):
         list lst_values_level -- it gets the list returned from get_list_of_generation_levels_names function
         of ReadConfigFile class.
         combobox levels_combo -- it shows all items from lst_values_level.
-        function self.show_details_of_level -- it returns the details(top, bottom, status) of each level.
-        """
+        function self.show_details_of_level -- it returns the details(top, bottom, status) of each level."""
         lst_values_level = ReadConfigFile(self.file_config).get_list_of_generation_levels_names()       
         levels_combo = ttk.Combobox (self.main, state = 'readonly')
         levels_combo['values'] = (lst_values_level)
@@ -144,8 +139,7 @@ class SettingsGame(Frame):
         list details_level -- it gets the values returned from get_details_of_generation_levels function of
         ReadConfigFile class.      
         string top_limit -- it gets the value of top limit
-        string botton_limit -- it gets the value of bottom limit
-        """        
+        string botton_limit -- it gets the value of bottom limit. """        
         details_level = ReadConfigFile(self.file_config).get_details_of_generation_levels(level_name)
         top_limit = StringVar()
         botton_limit = StringVar()

@@ -7,8 +7,7 @@ class Interface(Frame):
     def __init__(self, main=None):
         """ Main function, creates a tkinter frame object.
         this will call to initwindow() function, which will create and
-        invoke all objects that will be available in the mainwindow.        
-        """
+        invoke all objects that will be available in the mainwindow. """
         Frame.__init__(self, main)
         self.main = main
         self.init_window()
@@ -16,9 +15,7 @@ class Interface(Frame):
     def init_window(self):        
         """ This function contains all objects (labels, buttons, text areas and so on) to be displayed in the window and
         also here has defined the size of the window.
-        this function will call the following command functions:
-            --settings
-            --quit
+                   
             
         ***** IT IS THE FIRST VERSION NEED TO IMPLEMENT THE REST OF THE BUTTONS AND FUNCTIONS
         """

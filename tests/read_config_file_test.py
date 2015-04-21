@@ -7,7 +7,7 @@ class ReadConfigFileTest(unittest.TestCase):
 
     def test_default_values_of_config_file(self):
         get_data = ReadConfigFile(config_test).get_output_file()    
-        default_values = get_data[0] + "\\" + get_data[1] + "." + get_data[2]   
+        default_values = get_data[0] + "\\" + get_data[1] 
         self.assertEqual("d:\SudokuGame\Sudoku.txt", default_values)
 
     def test_one_algorithm_should_be_set_as_active(self):           

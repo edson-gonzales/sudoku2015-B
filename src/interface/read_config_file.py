@@ -14,17 +14,14 @@ class ReadConfigFile():
     def get_output_file(self):
         """ This function returns list_output.
 
-        list list_output -- it has assigned all values read from config file.
-        """
+        list list_output -- it has assigned all values read from config file. """
         list_output = []
         for output in self.root.findall('Output'):
             path = output.find('Path').text
-            name = output.find('Name').text         
-            #extension = output.find('Extension').text   
+            name = output.find('Name').text                     
 
         list_output.append(path)
-        list_output.append(name)
-        #list_output.append(extension)
+        list_output.append(name)        
         
         return list_output            
 

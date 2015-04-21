@@ -11,8 +11,7 @@ class SaveConfigFile():
     def save_output_file_settings(self, new_file_path):
         """ This function saves the changes done in UI related to output file settings.
 
-        list new_file_path -- it gets the values(path and file name ) from UI.
-        """     
+        list new_file_path -- it gets the values(path and file name ) from UI."""     
         for output in self.root.findall('./Output'):            
             output.find('Path').text = new_file_path[0]
             output.find('Name').text = new_file_path[1]
@@ -32,8 +31,7 @@ class SaveConfigFile():
     def save_level_settings(self, level_details):
         """ This function saves the changes done in UI related to complexity of the game(easy,medium,high or custom).
         
-        list level_details -->got the values to save in the config file.
-        """     
+        list level_details -->got the values to save in the config file."""     
         for level in self.root.findall("./Generation/Level"):
             if level.get('name') == level_details[0]:
                 level.find('BottomLimit').text = str(level_details[1])
