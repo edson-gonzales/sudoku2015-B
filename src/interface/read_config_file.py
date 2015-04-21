@@ -1,51 +1,37 @@
 import xml.etree.ElementTree as etree
 class ReadConfigFile():
     
-    def __init__(self, fileconfig): 
-            
-            
-            self.xmld = etree.parse(fileconfig)             
-            self.root = self.xmld.getroot()
+    def __init__(self, file_config):
+        """ The Main function(constructor) -- creates the class attributes.
 
-        
+        file_config -- string type, the function receives the file configuration XML file name.
+        self.xmld -- import data from the XML file.
+        self.root -- reading the xml data.
+        """                         
+        self.xmld = etree.parse(file_config)             
+        self.root = self.xmld.getroot()        
 
     def get_output_file(self):
-        """ 
-        Returns the outputfile path, name and extension values from config file
-        listoutput: variable to assign all values read from config file
+        """ This function returns list_output.
+
+        list list_output -- it has assigned all values read from config file.
         """
         list_output = []
         for output in self.root.findall('Output'):
             path = output.find('Path').text
             name = output.find('Name').text         
-            extension = output.find('Extension').text   
-
+            #extension = output.find('Extension').text   
 
         list_output.append(path)
         list_output.append(name)
-        list_output.append(extension)
-
+        #list_output.append(extension)
         
-        return list_output
-
-    def list_of_file_types_supported(self):
-        """     
-        Returns a list with all files types values supported, it will be also get from config file
-        listtypes: variable of list type, it will have assigned all supported files, this info is read from config file
-        """
-        list_types = []
-        
-        for solve in self.root.findall('./Output/Extension/type'):          
-            name_alg = solve.find('type').text
-            #print namealg
-            #listypes.append(typevalue)
-        
+        return list_output            
 
     def get_list_of_algorithms(self):
-        """
-        Returns a list with all availables algorithms from config file, and the first item will always return
-        the active algorithm set for the game.
-        listalgorithms: variable of list type, it will have assigned all algorithms read from config file
+        """ This functions returns list_algorithms.
+
+        list list_algorithms -- it has assigned all algorithms names read from config file.
         """
         list_algorithms = []
         
@@ -62,13 +48,8 @@ class ReadConfigFile():
         return list_algorithms
     
     def get_list_of_generation_levels_names(self):
-
-        """
-        Returns a list with all availables levels names from config file, and the first item will always return
-        the active level set for the game. 
-
-        listlevels=variable of list type, it will have assigned all levels names read from config file
-        
+        """ This function returns list_levels. 
+        list_levels -- list variable type, it will have assigned the levels names read from config file.
         """
         list_levels = []
         for level in self.root.findall("./Generation/Level"):           
@@ -77,22 +58,18 @@ class ReadConfigFile():
             else:
                 name_level = level.get('name')
                 list_levels.append(name_level)                
-
+                
         list_levels.append(name_level_active)
         list_levels.reverse()
         
         return list_levels
 
     def get_details_of_generation_levels(self, level_name):
+        """ This function returns list_details_level.
 
+        string level_name -- level name entry required to filter the XML file.
+        list list_details_level -- it has assigned the level name, bottom, top limit and status value of an especific level.
         """
-        method: returns a list with the details of each level specified. the details returned are level name, top limit, bottom limit,
-        and status.
-        levelname -- thi parameter is string type and to return the details of each, the method requires this entry
-        listdetailslevel -- variable of list type, it will have assigned the details of each level
-        
-        """
-
         list_details_level = []
         
         for level in self.root.findall("./Generation/Level/[@name='" + level_name + "']"):           
@@ -103,6 +80,5 @@ class ReadConfigFile():
                     list_details_level.append(bottom_limit)
                     list_details_level.append(top_limit)
                     list_details_level.append(status)
-
         
-        return list_details_level     
+        return list_details_level
