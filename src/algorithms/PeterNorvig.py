@@ -24,7 +24,7 @@ class PeterNorvig:
         row_key_list -- Mostly this will be the row values. i.e  1, 2, 3,etc
         column_key_list -- Mostly this will be the column values. i.e A, B ,C, etc
         returns list with the filled keys crossed that will be used as
-        coordinates, i.e.  [1A, 2A ].
+                coordinates, i.e.  [1A, 2A ].
         """
 
         return [key + value for key in row_key_list for value in column_key_list]
@@ -56,7 +56,8 @@ class PeterNorvig:
         Keyword arguments:
         grid -- String that contains the sudoku game, i.e:
                 3000800000007000051000000000000003600020 .......
-        returns grid dict with the filled values ready to play.
+        returns grid dict with filled values ready to play, i.e :
+                {'A1': '3', 'A2': '0', 'A3': '0' ........
         """
 
         chars = [colum for colum in grid if colum in self.digits
@@ -108,8 +109,7 @@ class PeterNorvig:
                 return False
         for unit in self.units[square]:
             #Keys for the sent digit.
-            digit_places = [square for square in unit if digit
-                       in values[square]]
+            digit_places = [square for square in unit if digit in values[square]]
             if len(digit_places) == 0:
                 return False
             elif len(digit_places) == 1 and not self.assign(values,
@@ -160,6 +160,10 @@ class PeterNorvig:
         Solve the sudoku , returns False if the sudoku was invalid.
 
         Keyword arguments:
-        grid -- initial sudoku grid in string format to solve.
+        grid -- initial sudoku grid in string format to solve,
+                i.e: 3000800000007000051000000000000003600020 .......
+        returns the final dictionary with values of the solved sudoku
+        after apply the search algorithm recursively , i.e:
+                {'I6': '1', 'H9': '6', 'I2': '2' ........
         """
         return self.search(self.parse_grid(grid))

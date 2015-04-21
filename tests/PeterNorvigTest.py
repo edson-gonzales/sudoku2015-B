@@ -2,9 +2,9 @@ import sys
 sys.path.append('../../sudoku2015-B')
 
 import unittest
-from src.algorithms.peter_norving import PeterNorvig
+from src.algorithms.PeterNorvig import PeterNorvig
 
-class PeterNorvingTest(unittest.TestCase):
+class PeterNorvigTest(unittest.TestCase):
 
     def setUp(self):
         self.valid_test_game = \
