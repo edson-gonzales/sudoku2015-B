@@ -50,7 +50,7 @@ class PeterNorvig:
 
     def create_game_dict(self, grid):
         """
-        Convert grid game string into a dictionary  of {square: char}
+        Convert grid game in string format into a dictionary  of {square: char}
         with '0' for empties.
 
         Keyword arguments:
@@ -71,16 +71,15 @@ class PeterNorvig:
         except the sent digit from values[square] and then propagate.
 
         Keyword arguments:
-        values -- initial dictionary with values.
-        square -- square positions.
-        digit --  selected digit.
-        returns updated solution value list
-        or return False if a contradiction is detected.
+        values -- Initial dictionary with values, i.e: {'I6': '7', 'H9': '9',...
+        square -- String key that correspond to the square position, i.e: I6
+        digit -- Selected digit value to eliminate, i.e: 7
+        returns updated solution dict(i.e: {'E1': '135678', 'H7': '123679' ...)
+                or False if a contradiction is detected.
         """
 
         other_values = values[square].replace(digit, '')
-        if all(self.eliminate(values, square, temp_digit)
-               for temp_digit in other_values):
+        if all(self.eliminate(values, square, temp_digit) for temp_digit in other_values):
             return values
         else:
             return False
@@ -90,13 +89,12 @@ class PeterNorvig:
         Eliminate 'digit' from values[square]. Propagate when values or places <= 2.
 
         Keyword arguments:
-        values -- initial dictionary with values.
-        square -- square positions
-        digit --  selected digit.
-        returns updated solution value list
-        or return False if a contradiction is detected.
+        values -- Initial dictionary with values, i.e: {'I6': '7', 'H9': '9',...
+        square -- String key that correspond to the square position, i.e: I6
+        digit -- Selected digit value to eliminate, i.e: 7
+        returns updated solution dict(i.e: {'E1': '135678', 'H7': '123679' ...)
+                or False if a contradiction is detected.
         """
-
         if digit not in values[square]:
             return values
         values[square] = values[square].replace(digit, '')
@@ -104,8 +102,8 @@ class PeterNorvig:
             return False
         elif len(values[square]) == 1:
             temp_digit = values[square]
-            if not all(self.eliminate(values, temp_square, temp_digit)
-                       for temp_square in self.peers[square]):
+            updated_values = (self.eliminate(values, temp_square, temp_digit) for temp_square in self.peers[square])
+            if not all(updated_values):
                 return False
         for unit in self.units[square]:
             #Keys for the sent digit.
@@ -136,10 +134,8 @@ class PeterNorvig:
         (unfilled, square) = min((len(values[square]), square)
                                  for square in self.squares
                                  if len(values[square]) > 1)
-
         return self.get_true_element_from_sequence(
-            self.search(self.assign(values.copy(),
-            square, digit)) for digit in values[square])
+               self.search(self.assign(values.copy(),square, digit)) for digit in values[square])
 
     def get_true_element_from_sequence(self, sequence):
         """
@@ -149,7 +145,7 @@ class PeterNorvig:
         Keyword arguments:
         sequence -- values dictionary.
         """
-
+        print("SEQ",list(sequence))
         for element in sequence:
             if element:
                 return element
@@ -160,7 +156,7 @@ class PeterNorvig:
         Solve the sudoku , returns False if the sudoku was invalid.
 
         Keyword arguments:
-        grid -- initial sudoku grid in string format to solve,
+        grid -- Initial sudoku to solve grid in string format,
                 i.e: 3000800000007000051000000000000003600020 .......
         returns the final dictionary with values of the solved sudoku
         after apply the search algorithm recursively , i.e:

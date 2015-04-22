@@ -2,7 +2,7 @@ import sys
 sys.path.append('../../sudoku2015-B')
 
 import unittest
-from src.algorithms.PeterNorvig import PeterNorvig
+from src.algorithms.Peter_Norvig import PeterNorvig
 
 class PeterNorvigTest(unittest.TestCase):
 
