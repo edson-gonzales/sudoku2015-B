@@ -14,3 +14,19 @@ class SudokuIO(object):
         result = file.read()
         file.close()
         return result
+    
+    def print_sudoku(self, grid):
+        grid_string = '-------------------------\n'
+        for row in range(len(grid)):
+            size = len(grid[row])
+            for col in range (len(grid[row])):
+                if (col == len(grid[row])-1):
+                    grid_string = grid_string + str(grid[row][col] + '\n')
+                elif (col % 3 == 2):
+                    grid_string = grid_string + str(grid[row][col] + '|')
+                else:
+                    grid_string = grid_string + str(grid[row][col] + ' ')
+            if (row % 3 == 2):
+                grid_string = grid_string + '--------------------------\n'
+        grid_string = grid_string + '\n'
+        print(grid_string)
