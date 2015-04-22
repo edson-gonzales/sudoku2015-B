@@ -7,17 +7,14 @@ from save_config_file import SaveConfigFile
 class SettingsGame(Frame):
 
     def __init__(self, parent):
-        """ Main function(constructor) -- creates the class attributes, and creates the tkinter frame instance, and
-        invokes init_ window() function.
-
-        string self.configfile -- it has the config file location. """
+        """ Main function(constructor) -- create the class attributes, and create the tkinter frame instance. """
         main = self.main = Toplevel(parent)
         self.file_config = '../../config/config.xml'        
 
         self.init_window()
 
     def init_window(self):
-        """ This function shows the objects to be displayed in the window (labels, buttons, listbox, combobox)."""
+        """Invoke methods to display the objects in the window (labels, buttons, listbox, combobox)."""
         self.main.geometry("600x400+200+200")
         self.main.title("Settings Sudoku Game")
     
@@ -42,7 +39,7 @@ class SettingsGame(Frame):
         self.main.mainloop()
     
     def show_buttons(self):
-        """ This function shows save and close buttons in the UI."""
+        """Create save and close buttons in the UI."""
         #save button
         save_button = Button(self.main, text = " Save ", width = 10, heigh = 2, command=self.save_settings_config_file)
         save_button.place(x = 100, y = 330)
@@ -52,7 +49,7 @@ class SettingsGame(Frame):
         close_button.place(x = 200, y = 330)
     
     def show_labels(self):
-        """ This function shows the labels displayed in the UI."""
+        """Create the labels to be displayed in the UI."""
         #label for output file section
         Label(self.main, text = "Output File Config:").place(x = 15, y= 10)
         Label(self.main, text = "Path: ").place(x = 15, y = 40)
@@ -68,7 +65,7 @@ class SettingsGame(Frame):
         Label(self.main, text = "BottonLimit: ").place(x = 15, y = 290)
 
     def save_output_file(self):        
-        """ Thi function allows user to browser the folder where output file will be created."""
+        """Browse the folder where output file will be created."""
         # define button
         save_as_button=Button(self.main, text='Save File', width = 10, heigh = 2,
                               command=self.ask_save_as_file).place(x=410, y=30)
@@ -83,15 +80,15 @@ class SettingsGame(Frame):
         options['title'] = 'Choose directory'
          
     def ask_save_as_file(self):
-        """Returns an opened file in write mode."""
+        """Return an open a file in write mode."""
         file_path=tkFileDialog.asksaveasfile(mode='w', **self.file_opt)        
 
         return file_path
  
     def fill_values_in_the_output_file_entry(self, custom_path=None):
-        """ This function returns get_values_output_file.
+        """Fill Output file path box.
 
-        string get_values_output_file -- it gets the value returned of get_output_file function from "readconfigfile" class. """
+        string get_values_output_file --> ('c:\sudoku\sudoku.txt') it gets the value returned of get_output_file function from "readconfigfile" class. """
         get_values_output_file = ReadConfigFile(self.file_config).get_output_file()
         current_path = StringVar()
         current_file_name=StringVar()
@@ -103,11 +100,8 @@ class SettingsGame(Frame):
         output_file = Entry(self.main, textvariable = current_path, width = 50).place(x = 100, y = 40)
         
     def show_list_algorithms(self):
-        """ This function shows the algorithms read from configuration file in a combolist.
-
-        list list_of_algorithms -- this gets the value returned from get_list_of_algorithms function of
-        ReadConfigFile class.
-        listbox algorithms_listbox -- it will show all algorithms from list_of_algorithms list variable. """        
+        """Show the algorithms read from configuration file in a combolist."""
+        
         list_of_algorithms = ReadConfigFile(self.file_config).get_list_of_algorithms()      
         
         algorithms_listbox = Listbox(self.main, heigh = 4)
@@ -119,12 +113,8 @@ class SettingsGame(Frame):
         algorithms_listbox.place(x = 100, y = 130)
             
     def show_level_combobox(self):
-        """ This function shows the levels read from configuration file in the combobox.
+        """Show the levels read from configuration file in the combobox."""
 
-        list lst_values_level -- it gets the list returned from get_list_of_generation_levels_names function
-        of ReadConfigFile class.
-        combobox levels_combo -- it shows all items from lst_values_level.
-        function self.show_details_of_level -- it returns the details(top, bottom, status) of each level."""
         lst_values_level = ReadConfigFile(self.file_config).get_list_of_generation_levels_names()       
         levels_combo = ttk.Combobox (self.main, state = 'readonly')
         levels_combo['values'] = (lst_values_level)
@@ -134,12 +124,10 @@ class SettingsGame(Frame):
         self.show_details_of_level(lst_values_level[0])
 
     def show_details_of_level(self, level_name):
-        """ This function shows the top, botton values of a specific level.
+        """Show the top, botton values of a specific level.
 
-        list details_level -- it gets the values returned from get_details_of_generation_levels function of
-        ReadConfigFile class.      
-        string top_limit -- it gets the value of top limit
-        string botton_limit -- it gets the value of bottom limit. """        
+        string level_name --> ('Easy')
+        """
         details_level = ReadConfigFile(self.file_config).get_details_of_generation_levels(level_name)
         top_limit = StringVar()
         botton_limit = StringVar()
@@ -149,7 +137,7 @@ class SettingsGame(Frame):
         botton_limit = Entry(self.main,textvariable = botton_limit).place(x = 100, y = 290)
 
     def save_settings_config_file(self):
-        """ This function invokes to save_config_file class methods to save the changes made in the UI."""
+        """Invoke to save_config_file class methods to save the changes made in the UI."""
 
         # save output file path
         new_file_path = ['c:\updated\sudoku','sudoku.txt'] 

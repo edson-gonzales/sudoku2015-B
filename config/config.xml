@@ -1,7 +1,7 @@
 <Settings>
 		<Output>
-			<Path>d:\SudokuGame</Path>
-			<Name>Sudoku.txt</Name>									
+			<Path>c:\updated\sudoku</Path>
+			<Name>sudoku.txt</Name>									
 		</Output>
 		<Solve>
 			<Algorithm name="Backtracking">
@@ -10,11 +10,11 @@
 			</Algorithm>
 			<Algorithm name="Peter Novig's">
 				<Id>2</Id>
-				<Status>Active</Status>
+				<Status>Inactive</Status>
 			</Algorithm>
 			<Algorithm name="BruteForce">
 				<Id>3</Id>
-				<Status>Inactive</Status>
+				<Status>Active</Status>
 			</Algorithm>
 		</Solve>
 		<Generation>
@@ -22,7 +22,7 @@
 				<Id>1</Id>				
 				<BottomLimit>60</BottomLimit>
 				<TopLimit>70</TopLimit>
-				<Status>Active</Status>					
+				<Status>Inactive</Status>					
 			</Level>
 			<Level name="Medium">
 				<Id>2</Id>				
@@ -33,8 +33,8 @@
 			<Level name="Hard">
 				<Id>3</Id>				
 				<BottomLimit>10</BottomLimit>
-				<TopLimit>15</TopLimit>
-				<Status>Inactive</Status>
+				<TopLimit>30</TopLimit>
+				<Status>Active</Status>
 			</Level>
 			<Level name="Custom">
 				<Id>4</Id>

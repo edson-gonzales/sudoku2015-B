@@ -1,20 +1,20 @@
 import xml.etree.ElementTree as etree
+
 class ReadConfigFile():
     
     def __init__(self, file_config):
-        """ The Main function(constructor) -- creates the class attributes.
+        """The Main function(constructor) -- creates the class attributes.
 
-        file_config -- string type, the function receives the file configuration XML file name.
-        self.xmld -- import data from the XML file.
-        self.root -- reading the xml data.
+        string file_config -->('../config/config.xml') 
         """                         
         self.xmld = etree.parse(file_config)             
         self.root = self.xmld.getroot()        
 
     def get_output_file(self):
-        """ This function returns list_output.
+        """Return list_output.
 
-        list list_output -- it has assigned all values read from config file. """
+        list list_output --> ['c:\sudoku','sudoku.txt']
+        """
         list_output = []
         for output in self.root.findall('Output'):
             path = output.find('Path').text
@@ -26,9 +26,9 @@ class ReadConfigFile():
         return list_output            
 
     def get_list_of_algorithms(self):
-        """ This functions returns list_algorithms.
+        """Return list_algorithms.
 
-        list list_algorithms -- it has assigned all algorithms names read from config file.
+        list list_algorithms -->['backtraking','Bruteforce'] algorithms names read from config file.
         """
         list_algorithms = []
         
@@ -45,8 +45,9 @@ class ReadConfigFile():
         return list_algorithms
     
     def get_list_of_generation_levels_names(self):
-        """ This function returns list_levels. 
-        list_levels -- list variable type, it will have assigned the levels names read from config file.
+        """Return list_levels. 
+        
+        list list_levels -->['Easy','Hard','etc'] levels names read from config file.
         """
         list_levels = []
         for level in self.root.findall("./Generation/Level"):           
@@ -62,10 +63,10 @@ class ReadConfigFile():
         return list_levels
 
     def get_details_of_generation_levels(self, level_name):
-        """ This function returns list_details_level.
+        """Return list_details_level.
 
-        string level_name -- level name entry required to filter the XML file.
-        list list_details_level -- it has assigned the level name, bottom, top limit and status value of an especific level.
+        string level_name --> ('Easy') level name entry required to filter the XML file.
+        list list_details_level --> ['Easy',10,30,'Active'] details of specific level; name, bottom, top limit and status value of an especific level.
         """
         list_details_level = []
         
