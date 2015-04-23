@@ -3,10 +3,13 @@ import xml.etree.ElementTree as etree
 class SaveConfigFile():
     
     def __init__(self, config_file):    
-        """ Main function, it creates the global variables for reading and saving configuration XML file."""        
-        self.config_file=config_file
-        self.xmld=etree.parse(self.config_file)     
-        self.root=self.xmld.getroot()           
+        """Main function, it creates the global variables for reading and saving configuration XML file.
+
+        string config_file -->('../config/config.xml'), save methods uses this entry to save the changes in the configuration file 
+        """        
+        self.config_file = config_file
+        self.xmld = etree.parse(self.config_file)     
+        self.root = self.xmld.getroot()           
 
     def save_output_file_settings(self, new_file_path):
         """ This function saves the changes done in UI related to output file settings.

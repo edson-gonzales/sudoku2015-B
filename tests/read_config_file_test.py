@@ -1,6 +1,7 @@
 import sys
 sys.path.append("../src/interface")
 import unittest
+
 from read_config_file import ReadConfigFile
 
 class ReadConfigFileTest(unittest.TestCase):

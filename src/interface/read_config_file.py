@@ -5,7 +5,7 @@ class ReadConfigFile():
     def __init__(self, file_config):
         """The Main function(constructor) -- creates the class attributes.
 
-        string file_config -->('../config/config.xml') 
+        string file_config -->('../config/config.xml') read methods uses this entry to read info from configuration file 
         """                         
         self.xmld = etree.parse(file_config)             
         self.root = self.xmld.getroot()        
