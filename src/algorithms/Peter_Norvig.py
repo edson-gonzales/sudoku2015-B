@@ -50,7 +50,11 @@ class PeterNorvig:
         grid -- String that contains the sudoku game, i.e: i.e: 30208000400070.......
         Returns a dictionary ready to play, i.e : {'A1': '3', 'A2': '0', 'A3': '0' ........
         """
-        chars = [colum for colum in grid if colum in self.digits or colum in '0']
+        chars = []
+        for colum in grid:
+            if colum in self.digits or colum in '0':
+                chars.append(colum)
+
         assert len(chars) == 81
         return dict(list(zip(self.squares, chars)))
 
@@ -116,7 +120,12 @@ class PeterNorvig:
             return False
         if all(len(values[square]) == 1 for square in self.squares):
             return values
-        more_than_one_value = [(len(values[square]), square) for square in self.squares if len(values[square]) > 1]
+
+        more_than_one_value = []
+        for square in self.squares:
+            if len(values[square]) > 1:
+                more_than_one_value.append((len(values[square]), square))
+
         (unfilled, square) = min(more_than_one_value)
         updated_values = [self.search(self.assign(values.copy(),square, digit)) for digit in values[square]]
         return self.get_true_element_from_sequence(updated_values)
