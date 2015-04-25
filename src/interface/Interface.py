@@ -36,15 +36,15 @@ class Interface(Frame):
         settings_button.place(x = 10, y = 10)
 
         # generation button 
-        generate_button = Button(self.main,text = "Generate", width = 10, heigh = 2, command=self.generate_game_button)
+        generate_button = Button(self.main,text = "Generate", width = 10, heigh = 2, command = self.generate_game_button)
         generate_button.place(x = 10, y = 60)
 
         # solve button
-        solve_button = Button(self.main, text = "Solve", width = 10, heigh = 2, command=self.solve_game_button)
+        solve_button = Button(self.main, text = "Solve", width = 10, heigh = 2, command = self.solve_game_button)
         solve_button.place(x = 10, y = 120)
 
         # save button
-        save_button = Button(main, text = "Save", width = 10, heigh = 2, command=self.save_game_button)
+        save_button = Button(main, text = "Save", width = 10, heigh = 2, command = self.save_game_button)
         save_button.place(x = 10, y = 180)
 
         # close button
