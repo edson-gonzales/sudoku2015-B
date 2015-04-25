@@ -1,7 +1,7 @@
 import random
 
 
-class AlgorithmBruteForce(object):
+class BruteForce(object):
 
     def __init__(self):        
         # EMPTY_SUDOKU -- empty grid with dimension 9x9.

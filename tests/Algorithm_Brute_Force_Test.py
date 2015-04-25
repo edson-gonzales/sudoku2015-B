@@ -1,10 +1,10 @@
 import unittest, sys
 sys.path.append("../src/algorithms")
 
-from Algorithm_Brute_Force import AlgorithmBruteForce
+from Brute_Force import BruteForce
 
 class TestBruteForceAlgorithm(unittest.TestCase):
-    solver = AlgorithmBruteForce()
+    solver = BruteForce()
     sudoku_to_solve = '530070000600195000098000060800060003400803001700020006060000280000419000000080070'
     sudoku_solved = [[5, 3, 4, 6, 7, 8, 9, 1, 2],
         [6, 7, 2, 1, 9, 5, 3, 4, 8],
@@ -52,8 +52,7 @@ class TestBruteForceAlgorithm(unittest.TestCase):
       sudoku_with_more_rows = '5300700006001999500009800006080006000340080300170002000606000028000041900000008007'
       self.assertEqual(self.sudoku_emty, self.solver.solve(sudoku_with_more_rows))
 
-    def test_easy_sudoku_is_solved_correctly(self):
-      solver = AlgorithmBruteForce()
+    def test_easy_sudoku_is_solved_correctly(self):      
       sudoku_easy_to_solve = '534678912600195000098000060800060003426853001700020006060000280000419000000086179'
       self.assertEqual(self.sudoku_solved, self.solver.solve(sudoku_easy_to_solve))
 
