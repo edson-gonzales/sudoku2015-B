@@ -1,6 +1,7 @@
 import sys
 from Tkinter import *
 from settings_game import SettingsGame
+from game_options import GameOptions
 
 class Interface(Frame):
     
@@ -35,15 +36,15 @@ class Interface(Frame):
         settings_button.place(x = 10, y = 10)
 
         # generation button 
-        generate_button = Button(self.main,text = "Generate", width = 10, heigh = 2)
+        generate_button = Button(self.main,text = "Generate", width = 10, heigh = 2, command = self.generate_game_button)
         generate_button.place(x = 10, y = 60)
 
         # solve button
-        solve_button = Button(self.main, text = "Solve", width = 10, heigh = 2)
+        solve_button = Button(self.main, text = "Solve", width = 10, heigh = 2, command = self.solve_game_button)
         solve_button.place(x = 10, y = 120)
 
         # save button
-        save_button = Button(main, text = "Save", width = 10, heigh = 2)
+        save_button = Button(main, text = "Save", width = 10, heigh = 2, command = self.save_game_button)
         save_button.place(x = 10, y = 180)
 
         # close button
@@ -53,6 +54,18 @@ class Interface(Frame):
     def settings(self):
         """invoke SettingsGame class to displays Soduko Configuration setting window."""
         settings = SettingsGame(self.main)
+
+    def solve_game_button(self):
+        """Invoke to solve_game method from GameOption class."""
+        solve_game = GameOptions().solve_game()
+
+    def generate_game_button(self):
+        """Invoke to generate_game method from GameOption class."""
+        generate_game = GameOptions().generate_game()
+
+    def save_game_button(self):
+        """Invoke to save_game method from GameOption class."""
+        save_game = GameOptions().save_game()
 
     def quit(self):
         """Close the application."""
