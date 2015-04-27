@@ -14,8 +14,11 @@ class SudokuIOHtml(SudokuIO):
     def create_header(self):
         string_html = '<html>\n<head>\n' \
             '<style>\n.middle_line_row{\nborder-top-style: dotted;\nborder-top-width: 3px;\n' \
-            'border-left-color: green;\n}\n.middle_line_col{\nborder-left-style: dotted;\n' \
-            'border-left-width: 3px;\nborder-left-color: green;\n}\n</style>\n'\
+            'border-top-color: green;\n}\n.middle_line_col{\nborder-left-style: dotted;\n' \
+            'border-left-width: 3px;\nborder-left-color: green;\n}\n' \
+            '.middle_line{\nborder-top-style: dotted;\nborder-top-width: 3px;\nborder-top-color: ' \
+            'green;\nborder-left-style: dotted;\nborder-left-width: 3px;\n'\
+            'border-left-color: green;\n}\n</style>\n'\
             '<h2>Sudoku Exported Grid:</h2>\n</head>\n'
         return string_html
 
@@ -33,10 +36,20 @@ class SudokuIOHtml(SudokuIO):
         else:
             string_html = string_html + '<tr>\n'
         for col in range (len(grid[row])):
-            if (col == len(grid[row])-1):
+            if (col == len(grid[row])-1 and row % 3 != 0):
                 string_html = string_html + '<td>' + str(grid[row][col]) + '</td>\n</tr>\n'
-            elif (col % 3 == 0) and (col >= 1):
-                string_html = string_html + '<td class=\'middle_line_col\'>' + str(grid[row][col]) + '</td>\n'
+            elif(col == len(grid[row])-1 and row % 3 == 0 and row >= 1):
+                string_html = string_html + '<td class=\'middle_line_row\'>' \
+                   + str(grid[row][col]) + '</td>\n</tr>\n'
+            elif (col % 3 == 0) and ((row % 3 != 0) or (row == 0)) and (col >= 1):
+                string_html = string_html + '<td class=\'middle_line_col\'>' \
+                   + str(grid[row][col]) + '</td>\n'
+            elif (col % 3 == 0) and (row % 3 == 0) and col >= 1 and row >= 1:
+                string_html = string_html + '<td class=\'middle_line\'>' \
+                   + str(grid[row][col]) + '</td>\n'
+            elif (row % 3 == 0) and ((col % 3 != 0) or (col == 0)) and (row >= 1):
+                string_html = string_html + '<td class=\'middle_line_row\'>' \
+                   + str(grid[row][col]) + '</td>\n'
             else:
                 string_html = string_html + '<td>' + str(grid[row][col]) + '</td>\n'
         return string_html
