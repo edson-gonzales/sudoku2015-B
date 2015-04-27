@@ -1,4 +1,6 @@
-class PeterNorvig:
+from Base_solver import BaseSolver
+
+class PeterNorvig(BaseSolver):
 
     def __init__(self):
         self.digits = '123456789'
