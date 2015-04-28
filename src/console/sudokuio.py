@@ -64,7 +64,7 @@ class SudokuIO(object):
         return os.path.exists(self.file_path) and os.path.isfile(self.file_path)
 
 
-    def convert_grid_to_string(self, grid):
+    def format_grid(self, grid):
         """ Method that convert a grid[9][9] in an string with the sudoku format.
 
         int[9][9] grid - the grid that will be converted in a string.
@@ -93,10 +93,10 @@ class SudokuIO(object):
         return grid_string
 
     
-    def write_sudoku_in_txt_file(self,grid):
+    def write_sudoku_in_file(self,grid):
         """ Mehod that write a sudoku grid in a txt file located in self.file_path
 
         int[9][9] grid - the grid 9x9 that will be writed in a txt file.
         """
-        grid_string = self.convert_grid_to_string(grid)
+        grid_string = self.format_grid(grid)
         self.write(grid_string)

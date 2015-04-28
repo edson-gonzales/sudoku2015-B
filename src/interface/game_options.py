@@ -1,3 +1,5 @@
+import os
+
 from read_config_file import ReadConfigFile
 
 class GameOptions():

@@ -30,8 +30,8 @@ class SudokuIOTest(unittest.TestCase):
             [6,9,2,3,5,1,8,7,4],
             [7,4,5,2,8,6,3,1,9]
             ]
-        file_io.write_sudoku_in_txt_file(grid)
-        grid_string = file_io.convert_grid_to_string(grid)
+        file_io.write_sudoku_in_file(grid)
+        grid_string = file_io.format_grid(grid)
         self.assertEqual(grid_string,file_io.read_all())
         file_io.delete_content()
     
@@ -43,8 +43,8 @@ class SudokuIOTest(unittest.TestCase):
             [3,2,1]
             ]
         file_io = SudokuIO(file_path)
-        file_io.write_sudoku_in_txt_file(grid)
-        grid_string = file_io.convert_grid_to_string(grid)
+        file_io.write_sudoku_in_file(grid)
+        grid_string = file_io.format_grid(grid)
         self.assertEqual(grid_string,file_io.read_all())
         file_io.delete_content()
     

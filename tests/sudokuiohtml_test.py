@@ -1,4 +1,4 @@
-import sys
+import sys, xml.etree.ElementTree as ElementTree
 
 sys.path.append("../../sudoku2015-B")
 
@@ -8,7 +8,7 @@ from src.console.sudokuiohtml import SudokuIOHtml
 
 class SudokuIOHtmlTest(unittest.TestCase):
     def test_write_sudoku_in_file(self):
-        file_path = './test.html'
+        file_path = './test_full_game.html'
         file_io = SudokuIOHtml(file_path)
         grid = [
             [3,1,6,5,7,8,4,9,2],
@@ -21,21 +21,21 @@ class SudokuIOHtmlTest(unittest.TestCase):
             [6,9,2,3,5,1,8,7,4],
             [7,4,5,2,8,6,3,1,9]
             ]
-        file_io.write_sudoku_in_txt_file(grid)
-        grid_string = file_io.convert_grid_to_string(grid)
+        file_io.write_sudoku_in_file(grid)
+        grid_string = SudokuIOHtml.format_grid_to_string(grid)
         self.assertEqual(grid_string,file_io.read_all())
         file_io.delete_content()
     
     def test_write_a_3x3_game(self):
-        file_path = './test1.html'
+        file_path = './test_smal_game.html'
         grid = [
             [1,2,3],
             [2,1,3],
             [3,2,1]
             ]
         file_io = SudokuIOHtml(file_path)
-        file_io.write_sudoku_in_txt_file(grid)
-        grid_string = file_io.convert_grid_to_string(grid)
+        file_io.write_sudoku_in_file(grid)
+        grid_string = SudokuIOHtml.format_grid_to_string(grid)
         self.assertEqual(grid_string,file_io.read_all())
         file_io.delete_content()
 
