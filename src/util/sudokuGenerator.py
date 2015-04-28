@@ -5,51 +5,50 @@ from Brute_Force import BruteForce
 
 
 class SudokuGenerator(object):
-	"""Generates a sudoku game depends of the complexity level"""
-	def __init__(self, dificult):
-		"""
-		dificult - string, value to define the sudoku's dificult. Posible values:		
-		"""
-		self.dificult = dificult
+	"""Generates a sudoku game depends of the complexity level sent"""
+	def __init__(self):		
 		# EMPTY_SUDOKU - string, is the empty sudoku going to send to 
 		self.EMPTY_SUDOKU = '000000000000000000000000000000000000000000000000000000000000000000000000000000000'
 	
-	def generateRandomList(self, number, list):
+	def generate_random_list(self, number, list):
 		"""
-		Generates a random list to mask index.
+		Generates a random list to mask cells and display zero instead of cell's 
+		solution.
 
-		number - int, number of cels per row to be maintained and not modified.
+		number - int, number of cells per row to be maintained and not modified.
 		list - int, list to modify with zero.
 		Return - list numbers
 		"""
 		index = random.randint(0, len(list) - 1)
 		result = [list.pop(index)]
 		if(number > 1):
-			result.extend(self.generateRandomList(number - 1, list))
+			result.extend(self.generate_random_list(number - 1, list))
+		
 		return result
 
-	def get_sudoku_dificult(self):
-		dificult_sent = self.dificult
-		dificult = 0
-		print dificult
-
-		while switch(dificult_sent):
-			if case('easy'):
-		        dificult = 1
-		        break
-		    if case('medium'):
-		        dificult = 2
-		        break
-		    if case('hard'):
-		        dificult = 3
-		        break
-		    print "Not allowed dificult"		    
-		    break
-		return dificult
-
-	def mask(self, sudoku):
+	def get_minimum_replaced_cells_with_zero(self, dificult):
 		"""
-		Iterates within the sudoku to mask required values defined by dificult 
+		Gets the minimum number of cells going to be replaced by Zero in a 
+		Sudoku grid.
+
+		dificult - string, sudoku's dificult sent
+		Return - returns the minimum cant of cells going to be masked and
+		displayed as zero
+		"""
+		minimum_replaced_cells_with_zero = 5
+		
+		if dificult == "easy":
+		    minimum_replaced_cells_with_zero = 3
+		elif dificult == "medium":
+		    minimum_replaced_cells_with_zero = 5
+		elif dificult == "hard":
+		    minimum_replaced_cells_with_zero = 6
+		
+		return minimum_replaced_cells_with_zero
+
+	def mask(self, sudoku, dificult):
+		"""
+		Iterates within the sudoku grid to mask required values defined by dificult.
 
 		sudoku - grid of integer, grid already solved to iterate in order to 
 		mask sudoku cells with zero value
@@ -58,29 +57,21 @@ class SudokuGenerator(object):
 		for rowNum in range(9):
 			row = sudoku[rowNum]
 			offset = random.randint(0, 1)
-			maskIndices = self.generateRandomList(7 + offset, range(9))
+			maskIndices = self.generate_random_list(self.get_minimum_populates_cell_per_row(dificult) + offset, range(9))
+			#maskIndices = self.generateRandomList(1 + offset, range(9))
 			for index in maskIndices:
 				row[index] = 0
 		return sudoku
 
-	def generate_sudoku(self):
+	def generate_sudoku(self, dificult):
 		"""
-		Uses the Brute Force algoritm to solve an empty suudoku.
+		Uses the Brute Force algoritm to solve an empty suudoku, then uses that 
+		solved Sudoku  to replace some cells on it with zero values depending of 
+		the dificult sent.
 
 		Return - grid of integer, sudoku masked.
 		"""
 		brute_force = BruteForce()
 		solution = brute_force.solve(self.EMPTY_SUDOKU)
-		return self.mask(solution)
+		return self.mask(solution, dificult)
 
-if __name__ == '__main__':
-	generator = SudokuGenerator()
-	sudoku = generator.generate_sudoku('easy')
-	print sudoku
-
-	for x in sudoku:
-		pass
-	list1 = ['1','2','3']
-	string = " ".join(list1)
-	print list1
-	print string
