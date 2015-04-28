@@ -1,22 +1,19 @@
 import sys
-
 sys.path.append("../../sudoku2015-B")
-
 import unittest
+from src.algorithms.Backtracking import Backtracking
 
-
-from src.algorithms.backtracking import Backtracking
 
 class BacktrackingTest(unittest.TestCase):
 
     def test_return_none_for_find_unassigned_location_of_a_3x3_grip_when_all_are_full(self):
         grid = [[1,2,3],[2,3,1],[3,1,2]]
         backtracking = Backtracking()
-        self.assertIsNone(backtracking.find_unassigned_location(grid,0,0))  
+        self.assertIsNone(backtracking.find_unassigned_location(grid,0,0))
     def test_return_position_for_find_unassigned_location_of_a_3x3_grip_when_there_is_a_blank(self):
         grid = [[1,2,3],[2,3,0],[3,1,2]]
         backtracking = Backtracking()
-        self.assertEqual([1,2],backtracking.find_unassigned_location(grid,0,0)) 
+        self.assertEqual([1,2],backtracking.find_unassigned_location(grid,0,0))
     def test_return_position_for_find_unassigned_location_of_a_3x3_grip_when_there_is_a_blank_at_the_end(self):
         grid = [[1,2,3],[2,3,1],[3,1,0]]
         backtracking = Backtracking()
@@ -168,7 +165,7 @@ class BacktrackingTest(unittest.TestCase):
             ]
         backtracking = Backtracking()
         self.assertFalse(backtracking.is_used_in_box(grid,6,3,8))
-    
+
     def test_return_true_when_a_number_is_valid_in_a_sudoku_grid_position(self):
         grid = [
             [3,1,6,5,7,8,4,9,2],

@@ -1,12 +1,14 @@
 from string import maketrans
+from Base_solver import BaseSolver
 
-class Backtracking(object):
+
+class Backtracking(BaseSolver):
     def __init__(self):
         self.UNASSIGNED = 0
         self.DIMENSION = 9
 
     def find_unassigned_location(self, grid, row, col):
-        """ Function that returns the possition of a cell with the value 
+        """ Function that returns the possition of a cell with the value
         self.UNASSIGNED
 
         int[9][9] grid -- the grid with the current sudoku values.
@@ -28,14 +30,14 @@ class Backtracking(object):
         int[9][9] grid -- the grid with the current sudoku game.
         int row -- The current row to check the self.UNASSIGNED position
         int col -- The current col to check the self.UNASSIGNED position
-        return int[2] -- return an array with a size of 2 that is the position 
+        return int[2] -- return an array with a size of 2 that is the position
             [row, col] af a sel with self.UNASSIGNED status.
         """
         for col in range(len(grid[row])):
             if grid[row][col] == self.UNASSIGNED:
                 return [row, col]
         return None
-        
+
     def is_used_in_row(self, grid, row, num):
         """Function that returns a boolean value when the *num* provided is repeated
         in the row.
@@ -44,13 +46,13 @@ class Backtracking(object):
         int row -- row number in the grid.
         int num -- number to evaluate in the row.
         return boolean -- return True when is already used in the row or False when
-            is not used.    
+            is not used.
         """
         for col in range(len(grid[row])):
             if grid[row][col] == num:
                 return True;
         return False
-    
+
     def is_used_in_col(self, grid, col, num):
         """ Function that returns a boolean value when the *num* provided is
         repeated in the column.
@@ -58,16 +60,16 @@ class Backtracking(object):
         int[9][9] grid -- the grid with the current sudoku values.
         int col -- column number in the grid.
         int num -- number to evaluate in the col.
-        return boolean -- return True when is already used in the column or False 
+        return boolean -- return True when is already used in the column or False
             when is not used.
         """
         for row in range(len(grid)):
             if grid[row][col] == num:
                 return True;
         return False
-    
+
     def is_used_in_box(self, grid, box_start_row, box_start_col, num):
-        """ Function that returns a boolean value when the *num* provided is 
+        """ Function that returns a boolean value when the *num* provided is
         repeated in a box 3x3.
 
         int[9][9] grid -- the grid with the current sudoku values.
@@ -81,10 +83,10 @@ class Backtracking(object):
             used = self.is_used_in_row_of_box(grid, row, box_start_row, box_start_col, num)
             if used:
                 return True
-        return False 
+        return False
 
     def is_used_in_row_of_box(self, grid, row, box_start_row, box_start_col, num):
-        """ This method return a boolean that means if the 'num' number is already 
+        """ This method return a boolean that means if the 'num' number is already
         used in the row of a box.
 
         int[9][9] grid -- the grid with the current sudoku values.
@@ -101,7 +103,7 @@ class Backtracking(object):
         return False
 
     def is_safe(self, grid, row, col, num):
-        """ Function that evaluate a number *num* provided whether this is valid or not 
+        """ Function that evaluate a number *num* provided whether this is valid or not
         in the provided *position [row,col]*.
 
         Keyword arguments
@@ -111,14 +113,14 @@ class Backtracking(object):
         int num -- number to evaluate in the sudoku grid.
         return boolean -- return True when the number is valid or False in other case
         """
-        return  (not self.is_used_in_row(grid, row, num) 
-                and not self.is_used_in_col(grid, col, num) 
+        return  (not self.is_used_in_row(grid, row, num)
+                and not self.is_used_in_col(grid, col, num)
                 and not self.is_used_in_box(grid, row - row % 3, col - col % 3, num))
 
     def solve_backtraking(self, grid):
         """ Function that solve a sudoku game with the backtracking algorithm
         int[9][9] grid -- the grid with the current sudoku values.
-        return boolean -- return True the Grid was solved and False when there is 
+        return boolean -- return True the Grid was solved and False when there is
             not solution.
         """
         row = 0
@@ -143,7 +145,7 @@ class Backtracking(object):
         int row --  the current start row position of the cell.
         int col -- the current start column position of the cell.
         int number -- the current start number to fill in the cell.
-        return boolean -- return True the Grid was solved and False when there is 
+        return boolean -- return True the Grid was solved and False when there is
             not solution.
         """
         if (self.is_safe(grid, row, col, number)):
@@ -173,7 +175,7 @@ class Backtracking(object):
         """ Function that return a grid 9x9 with the sudoku game solved if this can
         be solved or return none in other case.
 
-        string grid_string -- the string that contains the sudoku game in the format 
+        string grid_string -- the string that contains the sudoku game in the format
         "x....xx............xx....x...xxx.......x....xxx..x.x..x.....xxx.......xx........."
         return int[9][9] -- a grid with the sudoku game solved.
         """
