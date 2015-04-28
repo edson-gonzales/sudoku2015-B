@@ -11,7 +11,7 @@ class Interface(Frame):
         invoke all objects that will be available in the mainwindow.
         """
         Frame.__init__(self, main)
-        self.main = main
+        self.main = main        
         self.init_window()
 
     def init_window(self):        

@@ -1,6 +1,6 @@
 <Settings>
 		<Output>
-			<Path>D:\games\sudoku\sudoku.txt</Path>
+			<Path>c:\sudokugame\sudoku.txt</Path>
 		</Output>
 		<Solve>
 			<Algorithm name="Backtracking">
@@ -20,13 +20,13 @@
 			<Level name="Easy">
 				<Id>1</Id>				
 				<TopLimit>70</TopLimit>
-				<BottomLimit>36</BottomLimit>
-				<Status>Active</Status>					
+				<BottomLimit>60</BottomLimit>
+				<Status>Inactive</Status>					
 			</Level>
 			<Level name="Medium">
 				<Id>2</Id>				
-				<TopLimit>35</TopLimit>
-				<BottomLimit>30</BottomLimit>
+				<TopLimit>50</TopLimit>
+				<BottomLimit>40</BottomLimit>
 				<Status>Inactive</Status>
 			</Level>
 			<Level name="Hard">
@@ -39,7 +39,7 @@
 				<Id>4</Id>
 				<TopLimit>23</TopLimit>
 				<BottomLimit>20</BottomLimit>
-				<Status>Inactive</Status>
+				<Status>Active</Status>
 			</Level>
 		</Generation>	
 </Settings>
