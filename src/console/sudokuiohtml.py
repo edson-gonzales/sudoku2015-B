@@ -12,6 +12,8 @@ class SudokuIOHtml(SudokuIO):
     def __init__(self, file_path):
         """ Creator method for the object this define the styles that will be used in 
         the table and the location of the file where the game will be saved.
+
+        string file_path - The path where the sudoku game will be exported.
         """
         super(SudokuIOHtml, self).__init__(file_path)
         self.styles = [
@@ -65,6 +67,7 @@ class SudokuIOHtml(SudokuIO):
         """ Method that evaluate a grid and return the string representation of the grid
             in html format
 
+        int[9][9] grid - the grid that will be converted to string with html format.
         return string - the string representation with html tags of a grid.
         """
         html_page = SudokuIOHtml('./')
@@ -74,6 +77,7 @@ class SudokuIOHtml(SudokuIO):
     def format_grid(self, grid):
         """ Method that format the grid provided with html tags in a table.
 
+        int[9][9] grid - the grid that will be converted to ElementTree.Element.
         return ElementTree.Element - return the root of the page.
         """
         self.html_page = None
@@ -87,6 +91,10 @@ class SudokuIOHtml(SudokuIO):
     def fill_rows(self, grid, row, table):
         """ Method that fill the rows of the grid in the table.
 
+        int[9][9] grid - the grid that will be converted to ElementTree.Element.
+        int row - the row that will be evaluated in the grid.
+        ElementTree.Element table - the current partial representation
+            of the grid in html format.
         return ElementTree.Element - return the row of a table.
         """
         html_row = ElementTree.SubElement(self.table, 'tr')
@@ -110,6 +118,8 @@ class SudokuIOHtml(SudokuIO):
 
     def prettify(self, elem):
         """Return a pretty-printed XML string for the Element.
+
+        ElementTree.Element elem - convert and ElementTree.Element in a string representation.
         """
         rough_string = ElementTree.tostring(elem, 'utf-8')
         reparsed = minidom.parseString(rough_string)

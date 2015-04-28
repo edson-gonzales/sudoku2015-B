@@ -2,7 +2,7 @@ import os
 
 class SudokuIO(object):
 
-    def __init__(self,file_path):
+    def __init__(self, file_path):
         """ Constructor of the class, curently this define the variables for the open 
         mode w and w+ and the path where the file is located.
 
@@ -68,7 +68,7 @@ class SudokuIO(object):
         """ Method that convert a grid[9][9] in an string with the sudoku format.
 
         int[9][9] grid - the grid that will be converted in a string.
-        return string - return the representation of a grid[9][9] in the sudoku format.
+        return string - return the string representation of a grid in the sudoku format.
         """
 
         grid_string = '------------------\n'
@@ -77,9 +77,13 @@ class SudokuIO(object):
         return grid_string
 
     def fill_rows(self, grid, row, grid_string):
-        """ Fill the row of a grid in the grid_string variable
+        """ Fill the row of a grid in the grid_string variable.
 
-        return string - return the current representation of a grid in the sudoku format but by row.
+        int[9][9] grid - the grid that will be evaluated.
+        int row - the current row that will be evaluated.
+        string grid_string - the partial string representation of the grid.
+        return string - return the current partial string representation of a grid for 
+            the row provided.
         """
         for col in range (len(grid[row])):
             if (col == len(grid[row])-1):
@@ -93,8 +97,8 @@ class SudokuIO(object):
         return grid_string
 
     
-    def write_sudoku_in_file(self,grid):
-        """ Mehod that write a sudoku grid in a txt file located in self.file_path
+    def write_sudoku_in_file(self, grid):
+        """ Mehod that write a sudoku grid in a txt file located in self.file_path.
 
         int[9][9] grid - the grid 9x9 that will be writed in a txt file.
         """
