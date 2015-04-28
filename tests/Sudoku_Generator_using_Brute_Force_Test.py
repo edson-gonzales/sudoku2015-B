@@ -1,4 +1,5 @@
-import unittest, sys
+import unittest
+import sys
 sys.path.append("../src/algorithms")
 sys.path.append("../src/util")
 
@@ -23,9 +24,9 @@ class TestBruteForceAlgorithm(unittest.TestCase):
         sudoku = self.generator.generate_sudoku(difficult)
         self.assertIsNotNone(sudoku)
 
-    def test_default_sudoku_is_genrated_when_invalid_input_for_difficult(self):
+    def test_default_sudoku_is_generated_when_invalid_input_for_difficult(self):
         difficult = "invalid_difficult"
-        sudoku = self.generator.generate_sudoku(difficult)        
+        sudoku = self.generator.generate_sudoku(difficult)
         self.assertIsNotNone(sudoku)
 
 
