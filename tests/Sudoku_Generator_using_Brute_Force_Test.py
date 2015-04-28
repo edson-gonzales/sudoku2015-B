@@ -1,25 +1,33 @@
 import unittest, sys
+sys.path.append("../src/algorithms")
 sys.path.append("../src/util")
 
-from Brute_Force import BruteForce
+from Sudoku_Generator import SudokuGenerator
 
-class TestBruteForceAlgorithm(unittest.TestCase):    
-	generator = SudokuGenerator()
+
+class TestBruteForceAlgorithm(unittest.TestCase):
+    generator = SudokuGenerator()
 
     def test_easy_sudoku_can_be_generated(self):
-    	dificult = "easy"
-    	sudoku = generator.generate_sudoku(dificult)
-    	self.assertNotNone(sudoku)
+        difficult = "easy"
+        sudoku = self.generator.generate_sudoku(difficult)
+        self.assertIsNotNone(sudoku)
 
-	def test_medium_sudoku_can_be_generated(self):
-    	dificult = "medium"
-    	sudoku = generator.generate_sudoku(dificult)
-    	self.assertNotNone(sudoku)
+    def test_medium_sudoku_can_be_generated(self):
+        difficult = "medium"
+        sudoku = self.generator.generate_sudoku(difficult)
+        self.assertIsNotNone(sudoku)
 
     def test_hard_sudoku_can_be_generated(self):
-    	dificult = "hard"
-    	sudoku = generator.generate_sudoku(dificult)
-    	self.assertNotNone(sudoku)
+        difficult = "hard"
+        sudoku = self.generator.generate_sudoku(difficult)
+        self.assertIsNotNone(sudoku)
+
+    def test_default_sudoku_is_genrated_when_invalid_input_for_difficult(self):
+        difficult = "invalid_difficult"
+        sudoku = self.generator.generate_sudoku(difficult)        
+        self.assertIsNotNone(sudoku)
+
 
 if __name__ == '__main__':
     unittest.main()
