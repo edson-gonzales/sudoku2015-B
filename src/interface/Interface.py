@@ -1,7 +1,11 @@
 import sys
+sys.path.append("../console")
+
 from Tkinter import *
+from tkFont import Font
 from settings_game import SettingsGame
 from game_options import GameOptions
+from sudokuio import SudokuIO
 
 class Interface(Frame):
     
@@ -24,10 +28,10 @@ class Interface(Frame):
         #buttons section
         self.show_buttons()
                 
-        #canvas area to show the game
-        canvas_game_area = Canvas(main, height = 400, width = 400, bg = "white")
-        canvas_game_area.place(x = 150, y = 10)
-           
+        #Show Game in a text area        
+        self.game_area = Text(self.main, height=20, width=50)        
+        self.game_area.place(x=150,y=10)        
+        
         main.mainloop()
 
     def show_buttons(self):
@@ -58,14 +62,40 @@ class Interface(Frame):
     def solve_game_button(self):
         """Invoke to solve_game method from GameOption class."""
         solve_game = GameOptions().solve_game()
+        grid_string = SudokuIO.format_grid_to_string(solve_game)                
+        self.set_text(grid_string)
 
     def generate_game_button(self):
         """Invoke to generate_game method from GameOption class."""
         generate_game = GameOptions().generate_game()
+        grid_string = SudokuIO.format_grid_to_string(generate_game)        
+        self.set_text(grid_string)
 
     def save_game_button(self):
         """Invoke to save_game method from GameOption class."""
         save_game = GameOptions().save_game()
+
+    def clear_text( self ):
+        """Clear Game text area."""
+
+        self.game_area.delete( 1.0, END )
+
+    def get_text( self ):
+        """Return game text area value."""
+
+        text = self.game_area.get( 1.0, END )
+        if ( text is not None ):
+            text = text.strip()
+        if ( text == "" ):
+            text = None
+        return text
+
+    def set_text( self, value ):
+        """Set the new value in game text area."""
+
+        self.clear_text()
+        if ( value is not None ):
+            self.game_area.insert( END, value.strip() )
 
     def quit(self):
         """Close the application."""

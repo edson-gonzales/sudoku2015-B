@@ -5,7 +5,7 @@
 		<Solve>
 			<Algorithm name="Backtracking">
 				<Id>1</Id>
-				<Status>Inactive</Status>
+				<Status>Active</Status>
 			</Algorithm>
 			<Algorithm name="Peter Novig's">
 				<Id>2</Id>
@@ -13,7 +13,7 @@
 			</Algorithm>
 			<Algorithm name="BruteForce">
 				<Id>3</Id>
-				<Status>Active</Status>
+				<Status>Inactive</Status>
 			</Algorithm>
 		</Solve>
 		<Generation>
@@ -27,7 +27,7 @@
 				<Id>2</Id>				
 				<TopLimit>35</TopLimit>
 				<BottomLimit>30</BottomLimit>
-				<Status>Active</Status>
+				<Status>Inactive</Status>
 			</Level>
 			<Level name="Hard">
 				<Id>3</Id>				
@@ -39,7 +39,7 @@
 				<Id>4</Id>
 				<TopLimit>23</TopLimit>
 				<BottomLimit>20</BottomLimit>
-				<Status>Inactive</Status>
+				<Status>Active</Status>
 			</Level>
 		</Generation>	
 </Settings>
