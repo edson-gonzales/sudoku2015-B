@@ -11,24 +11,19 @@ class ReadConfigFile():
         self.root = self.xmld.getroot()        
 
     def get_output_file(self):
-        """Return list_output.
+        """Return file_path.
 
-        list list_output --> ['c:\sudoku','sudoku.txt']
-        """
-        list_output = []
+        string file_path --> ['c:\sudoku\sudoku.txt']
+        """        
         for output in self.root.findall('Output'):
-            path = output.find('Path').text
-            name = output.find('Name').text                     
-
-        list_output.append(path)
-        list_output.append(name)        
+            file_path = output.find('Path').text
         
-        return list_output            
+        return file_path            
 
     def get_list_of_algorithms(self):
         """Return list_algorithms.
 
-        list list_algorithms -->['backtraking','Bruteforce'] algorithms names read from config file.
+        list list_algorithms -->['backtraking','Bruteforce', 'Peter Novig's'] algorithms names read from config file.
         """
         list_algorithms = []
         
@@ -47,7 +42,7 @@ class ReadConfigFile():
     def get_list_of_generation_levels_names(self):
         """Return list_levels. 
         
-        list list_levels -->['Easy','Hard','etc'] levels names read from config file.
+        list list_levels -->['Easy','Medium','Hard'] levels names read from config file.
         """
         list_levels = []
         for level in self.root.findall("./Generation/Level"):           
@@ -66,7 +61,7 @@ class ReadConfigFile():
         """Return list_details_level.
 
         string level_name --> ('Easy') level name entry required to filter the XML file.
-        list list_details_level --> ['Easy',10,30,'Active'] details of specific level; name, bottom, top limit and status value of an especific level.
+        list list_details_level --> ['Easy',30,10,'Active'] details of specific level; name, bottom, top limit and status value of an especific level.
         """
         list_details_level = []
         
@@ -74,9 +69,9 @@ class ReadConfigFile():
                     bottom_limit = level.find('BottomLimit').text
                     top_limit = level.find('TopLimit').text              
                     status = level.find('Status').text              
-                    list_details_level.append(level_name)
-                    list_details_level.append(bottom_limit)
+                    list_details_level.append(level_name)                    
                     list_details_level.append(top_limit)
+                    list_details_level.append(bottom_limit)
                     list_details_level.append(status)
         
         return list_details_level

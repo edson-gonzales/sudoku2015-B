@@ -35,9 +35,8 @@ class GameOptions():
     def save_game(self):
         """Save the game results in a file.
 
-        string file_path --> 'c:\sudoku\sudoku.txt'. File path set in the configuration file
+        string get_file_path --> 'c:\sudoku\sudoku.txt'. File path set in the configuration file
         """
-        get_output_file = ReadConfigFile(self.file_config).get_output_file()
-        file_path = get_output_file[0]+'\\'+get_output_file[1]
-        print file_path
+        get_file_path = ReadConfigFile(self.file_config).get_output_file()        
+        print get_file_path
         # in this section we should include the code to invoke save game class in a file
