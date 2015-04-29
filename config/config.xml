@@ -1,11 +1,11 @@
 <Settings>
 		<Output>
-			<Path>D:\games\sudoku\sudoku.txt</Path>
+			<Path>D:\folderdelete\elizabeth.txt</Path>
 		</Output>
 		<Solve>
 			<Algorithm name="Backtracking">
 				<Id>1</Id>
-				<Status>Active</Status>
+				<Status>Inactive</Status>
 			</Algorithm>
 			<Algorithm name="Peter Novig's">
 				<Id>2</Id>
@@ -13,7 +13,7 @@
 			</Algorithm>
 			<Algorithm name="BruteForce">
 				<Id>3</Id>
-				<Status>Inactive</Status>
+				<Status>Active</Status>
 			</Algorithm>
 		</Solve>
 		<Generation>
@@ -21,7 +21,7 @@
 				<Id>1</Id>				
 				<TopLimit>70</TopLimit>
 				<BottomLimit>36</BottomLimit>
-				<Status>Active</Status>					
+				<Status>Inactive</Status>					
 			</Level>
 			<Level name="Medium">
 				<Id>2</Id>				
@@ -39,7 +39,7 @@
 				<Id>4</Id>
 				<TopLimit>23</TopLimit>
 				<BottomLimit>20</BottomLimit>
-				<Status>Inactive</Status>
+				<Status>Active</Status>
 			</Level>
 		</Generation>	
 </Settings>

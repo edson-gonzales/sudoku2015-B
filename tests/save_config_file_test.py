@@ -38,16 +38,16 @@ class ReadConfigFileTest(unittest.TestCase):
     def test_change_BruteForce_algorithm_to_Backtracking_in_config_file(self):
 
         active_alg = 'Bruteforce'
-        SaveConfigFile(save_config_test).save_algorithm_settings(active_alg)
+        SaveConfigFile(save_config_test).validate_alg_name(active_alg)
         change_alg_to = 'Backtracking'
-        SaveConfigFile(save_config_test).save_algorithm_settings(change_alg_to)
+        SaveConfigFile(save_config_test).validate_alg_name(change_alg_to)
         get_active_alg = ReadConfigFile(save_config_test).get_list_of_algorithms()
         self.assertEqual(change_alg_to, get_active_alg[0])
 
     def test_empty_algoritm_name_is_not_saved_in_config_file(self):
 
         empty_alg_name = ''
-        self.assertFalse(SaveConfigFile(save_config_test).save_output_file_settings(empty_alg_name))
+        self.assertFalse(SaveConfigFile(save_config_test).validate_alg_name(empty_alg_name))
 
     def test_change_from_easy_to_medium_level_in_config_file(self):
 

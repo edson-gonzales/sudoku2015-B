@@ -161,7 +161,7 @@ class SettingsGame(Frame):
         SaveConfigFile(self.file_config).save_output_file_settings(self.current_path.get())
 
         # save algorithm        
-        SaveConfigFile(self.file_config).save_algorithm_settings(self.value)       
+        SaveConfigFile(self.file_config).validate_alg_name(self.value)       
 
         list_level_details = [self.value_of_combo,self.top_limit.get(),self.bottom_limit.get()]
         SaveConfigFile(self.file_config).save_level_settings(list_level_details)
