@@ -1,6 +1,9 @@
 <Settings>
+		<Input>
+			<Path>C:\games\sudoku\sudoku_input_test_game.csv</Path>
+		</Input>
 		<Output>
-			<Path>D:\games\sudoku\sudoku.txt</Path>
+			<Path>C:\games\sudoku\sudoku.html</Path>
 		</Output>
 		<Solve>
 			<Algorithm name="Backtracking">

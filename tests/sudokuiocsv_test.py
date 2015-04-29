@@ -28,7 +28,7 @@ class SudokuIOCsvTest(unittest.TestCase):
         file_io.delete_content()
 
     def test_write_a_3x3_game(self):
-        file_path = './test1.csv'
+        file_path = './test.csv'
         grid = [
             [1,2,3],
             [2,1,3],

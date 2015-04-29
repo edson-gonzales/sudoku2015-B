@@ -44,11 +44,20 @@ class SudokuIOCsv(SudokuIO):
 
         return int[9][9] - return the data readed from csv file in grid format.
         """
-        csv_content = read_all()
-        csv_content = csv_content[0:len(csv_content)-2]
-        grid = csv_content.split('\r\n')
+        csv_content = self.read_all()
+        grid = None
+        if csv_content[len(csv_content)-2:len(csv_content)] == '\r\n':
+             # csv_content.find('\r\n') == -1:
+            csv_content = csv_content[0:len(csv_content)-2]
+            grid = csv_content.split('\r\n')
+        elif csv_content[len(csv_content)-1:len(csv_content)] == '\n':
+            csv_content = csv_content[0:len(csv_content)-1]
+            grid = csv_content.split('\n')
+        else:
+            grid = csv_content.split('\n')
         for row in range(len(grid)):
             grid[row] = [int(n) for n in grid[row].split(',')]
+        print(grid)
         return grid
 
     @staticmethod

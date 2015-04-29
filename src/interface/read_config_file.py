@@ -20,6 +20,16 @@ class ReadConfigFile():
         
         return file_path            
 
+    def get_input_file(self):
+        """Return file_path.
+
+        string file_path --> ['c:\sudoku\sudoku.txt']
+        """        
+        for input_file in self.root.findall('Input'):
+            file_path = input_file.find('Path').text
+        
+        return file_path 
+
     def get_list_of_algorithms(self):
         """Return list_algorithms.
 

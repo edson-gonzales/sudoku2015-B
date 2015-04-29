@@ -15,7 +15,8 @@ class Interface(Frame):
         invoke all objects that will be available in the mainwindow.
         """
         Frame.__init__(self, main)
-        self.main = main        
+        self.game_options = GameOptions()
+        self.main = main
         self.init_window()
 
     def init_window(self):        
@@ -24,13 +25,13 @@ class Interface(Frame):
         """
         main.geometry("800x500+100+100")
         main.title("Sudoku Game Interface")
-        
-        #buttons section
-        self.show_buttons()
                 
         #Show Game in a text area        
         self.game_area = Text(self.main, height=20, width=50)        
-        self.game_area.place(x=150,y=10)        
+        self.game_area.place(x=150,y=10)
+
+        #buttons section
+        self.show_buttons()     
         
         main.mainloop()
 
@@ -40,15 +41,15 @@ class Interface(Frame):
         settings_button.place(x = 10, y = 10)
 
         # generation button 
-        generate_button = Button(self.main,text = "Generate", width = 10, heigh = 2, command = self.generate_game_button)
+        generate_button = Button(self.main,text = "Generate", width = 10, heigh = 2, command = lambda:self.generate_game_button(self.game_options))
         generate_button.place(x = 10, y = 60)
 
         # solve button
-        solve_button = Button(self.main, text = "Solve", width = 10, heigh = 2, command = self.solve_game_button)
+        solve_button = Button(self.main, text = "Solve", width = 10, heigh = 2, command = lambda:self.solve_game_button(self.game_options))
         solve_button.place(x = 10, y = 120)
 
         # save button
-        save_button = Button(main, text = "Save", width = 10, heigh = 2, command = self.save_game_button)
+        save_button = Button(main, text = "Save", width = 10, heigh = 2, command = lambda:self.save_game_button(self.game_options))
         save_button.place(x = 10, y = 180)
 
         # close button
@@ -59,21 +60,34 @@ class Interface(Frame):
         """invoke SettingsGame class to displays Soduko Configuration setting window."""
         settings = SettingsGame(self.main)
 
-    def solve_game_button(self):
-        """Invoke to solve_game method from GameOption class."""
-        solve_game = GameOptions().solve_game()
-        grid_string = SudokuIO.format_grid_to_string(solve_game)                
+    def solve_game_button(self, game_options):
+        """Invoke to solve_game method from GameOption class.
+
+        GameOptions game_options - this is the class that manege the events for the buttons.
+        """
+        solve_game = game_options.solve_game()
+        grid_string = None
+        if solve_game == None:
+            grid_string = 'There is not solution for the sudoku game'
+        else:
+            grid_string = SudokuIO.format_grid_to_string(solve_game)                
         self.set_text(grid_string)
 
-    def generate_game_button(self):
-        """Invoke to generate_game method from GameOption class."""
-        generate_game = GameOptions().generate_game()
+    def generate_game_button(self, game_options):
+        """Invoke to generate_game method from GameOption class.
+
+        GameOptions game_options - this is the class that manege the events for the buttons.
+        """
+        generate_game = game_options.generate_game()
         grid_string = SudokuIO.format_grid_to_string(generate_game)        
         self.set_text(grid_string)
 
-    def save_game_button(self):
-        """Invoke to save_game method from GameOption class."""
-        save_game = GameOptions().save_game()
+    def save_game_button(self, game_options):
+        """Invoke to save_game method from GameOption class.
+
+        GameOptions game_options - this is the class that manege the events for the buttons.
+        """
+        save_game = game_options.save_game()
 
     def clear_text( self ):
         """Clear Game text area."""
