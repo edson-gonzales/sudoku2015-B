@@ -11,6 +11,7 @@ class SudokuIO(object):
         self.file_path = file_path
         self.WRITE_MODE_TRUNCATE = 'w+'
         self.WRITE_MODE = 'w'
+        self.grid_string = None
 
     def write(self, text):
         """ Method that write a text in the file located in the path self.file_path
@@ -63,6 +64,17 @@ class SudokuIO(object):
         """
         return os.path.exists(self.file_path) and os.path.isfile(self.file_path)
 
+    @staticmethod
+    def format_grid_to_string(grid):
+        """ Static method that convert a grid to string in the format of a sudoku game.
+        called example SudokuIO.format_grid_to_string(grid)
+
+        int[9][9] grid - A grit that will be converted to string with a sudoku format.
+        return string - an string in the format of a sudoku game.
+        """
+        sudokuio = SudokuIO('./test_file_temp.txt')
+        sudokuio.grid_string = sudokuio.format_grid(grid)
+        return sudokuio.grid_string
 
     def format_grid(self, grid):
         """ Method that convert a grid[9][9] in an string with the sudoku format.
@@ -71,10 +83,10 @@ class SudokuIO(object):
         return string - return the string representation of a grid in the sudoku format.
         """
 
-        grid_string = '------------------\n'
+        self.grid_string = '------------------\n'
         for row in range(len(grid)):
-            grid_string = self.fill_rows(grid, row, grid_string)
-        return grid_string
+            self.grid_string = self.fill_rows(grid, row, self.grid_string)
+        return self.grid_string
 
     def fill_rows(self, grid, row, grid_string):
         """ Fill the row of a grid in the grid_string variable.
