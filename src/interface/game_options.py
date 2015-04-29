@@ -1,12 +1,24 @@
 import os
+import sys
 
-from read_config_file import ReadConfigFile
+
+sys.path.append("../../")
+
+from string import maketrans
+from src.interface.read_config_file import ReadConfigFile
+from src.console.sudokuio import SudokuIO
+from src.console.sudokuiohtml import SudokuIOHtml
+from src.algorithms.backtracking import Backtracking
+from src.algorithms.Peter_Norvig import PeterNorvig
+from src.algorithms.Brute_Force import BruteForce
 
 class GameOptions():
         
     def __init__(self):
         """Main method of the class."""
         self.file_config = '../../config/config.xml'
+        self.grid = None
+        self.grid_string = None
 
     def solve_game(self):
         """Return the game solved using the algorithm chosen.
@@ -16,7 +28,30 @@ class GameOptions():
         get_algorithms = ReadConfigFile(self.file_config).get_list_of_algorithms()
         get_active_algorithm = get_algorithms[0]
         print get_active_algorithm
+        if self.grid != None:
+            if get_active_algorithm == 'Backtracking':
+                generator = Backtracking()
+                self.grid_string = self.convert_grid_to_string(self.grid)
+                self.grid = generator.solve(self.grid_string)
+            elif get_active_algorithm == 'Peter Novig\'s':
+                generator = PeterNorvig()
+                self.grid_string = self.convert_grid_to_string(self.grid)
+                self.grid = generator.solve(self.grid_string)
+            elif get_active_algorithm == 'BruteForce':
+                generator = BruteForce()
+                self.grid_string = self.convert_grid_to_string(self.grid)
+                self.grid = generator.solve(self.grid_string)
+        else:
+            print('There is not sudoku game to solve')
         # in this section we should include the code to invoke algoritm classes to solve the game and return an string to show it in the UI
+    
+    def convert_grid_to_string(self, grid):
+        self.grid_string = ''
+        for row in range(len(grid)):
+            self.grid_string = self.grid_string + ''.join("{0}".format(number) for number in grid[row])
+        convert_zero_to_dot = maketrans('0', '.')
+        self.grid_string = str(self.grid_string).translate(convert_zero_to_dot)
+        return self.grid_string
 
     def generate_game(self):
         """Generate the game using the complexity level chosen.
@@ -30,6 +65,8 @@ class GameOptions():
         get_level_active_name = ReadConfigFile(self.file_config).get_list_of_generation_levels_names()
         get_level_details = ReadConfigFile(self.file_config).get_details_of_generation_levels(get_level_active_name[0])
         print get_level_details
+        generator = SudokuGenerator()
+        self.grid = generator.generate_sudoku(get_level_details[0])
         # in this section we should include the code to invoke generate game class and return an string to show it in the UI
 
     def save_game(self):
@@ -39,4 +76,16 @@ class GameOptions():
         """
         get_file_path = ReadConfigFile(self.file_config).get_output_file()        
         print get_file_path
+        extension = os.path.splitext(get_file_path)[-1].lower()
+        if self.grid != None:
+            if extension == '.txt':
+                output = SudokuIO(get_file_path)
+                output.write_sudoku_in_file(self.grid)
+            elif extension == '.html':
+                output = SudokuIOHtml(get_file_path)
+                output.write_sudoku_in_file(self.grid)
+            else:
+                print('Format not supported')
+        else:
+            print('There is not game to save.')
         # in this section we should include the code to invoke save game class in a file
