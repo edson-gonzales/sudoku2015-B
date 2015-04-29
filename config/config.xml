@@ -1,6 +1,6 @@
 <Settings>
 		<Output>
-			<Path>D:\folderdelete\elizabeth.txt</Path>
+			<Path>D:\games\sudoku\sudoku.txt</Path>
 		</Output>
 		<Solve>
 			<Algorithm name="Backtracking">
@@ -27,7 +27,7 @@
 				<Id>2</Id>				
 				<TopLimit>35</TopLimit>
 				<BottomLimit>30</BottomLimit>
-				<Status>Inactive</Status>
+				<Status>Active</Status>
 			</Level>
 			<Level name="Hard">
 				<Id>3</Id>				
@@ -39,7 +39,7 @@
 				<Id>4</Id>
 				<TopLimit>23</TopLimit>
 				<BottomLimit>20</BottomLimit>
-				<Status>Active</Status>
+				<Status>Inactive</Status>
 			</Level>
 		</Generation>	
 </Settings>
