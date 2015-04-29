@@ -13,6 +13,5 @@ class BaseSolverTest(unittest.TestCase):
                       '4000070000000000060130045200000000000800'
             base_solver.solve(test_string)
 
-
 if __name__ == '__main__':
     unittest.main()

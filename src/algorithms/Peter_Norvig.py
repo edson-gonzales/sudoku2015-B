@@ -1,5 +1,6 @@
 from Base_solver import BaseSolver
 
+
 class PeterNorvig(BaseSolver):
 
     def __init__(self):
@@ -147,13 +148,13 @@ class PeterNorvig(BaseSolver):
                 return element
         return False
 
-    #def solve(self, grid):
-        #"""
-        #Solve the sudoku , returns False if the sudoku was invalid.
+    def solve(self, grid):
+        """
+        Solve the sudoku , returns False if the sudoku was invalid.
 
-        #Keyword arguments:
-        #grid -- Initial sudoku to solve grid in string format,i.e: 30008000000...
-        #Returns the final dictionary with values of the solved sudoku after apply
-            #the search algorithm recursively , i.e: {'I6': '1', 'H9': '6',........
-        #"""
-        #return self.search(self.parse_grid(grid))
+        Keyword arguments:
+        grid -- Initial sudoku to solve grid in string format,i.e: 30008000000...
+        Returns the final dictionary with values of the solved sudoku after apply
+            the search algorithm recursively , i.e: {'I6': '1', 'H9': '6',........
+        """
+        return self.search(self.parse_grid(grid))
