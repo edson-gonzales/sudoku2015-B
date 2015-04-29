@@ -2,15 +2,17 @@ import os
 import sys
 
 
-sys.path.append("../../")
+sys.path.append("../../src/console")
+sys.path.append("../../src/interface")
+sys.path.append("../../src/algorithms")
 
+from read_config_file import ReadConfigFile
+from sudokuio import SudokuIO
+from sudokuiohtml import SudokuIOHtml
+from backtracking import Backtracking
+from Peter_Norvig import PeterNorvig
+from Brute_Force import BruteForce
 from string import maketrans
-from src.interface.read_config_file import ReadConfigFile
-from src.console.sudokuio import SudokuIO
-from src.console.sudokuiohtml import SudokuIOHtml
-from src.algorithms.backtracking import Backtracking
-from src.algorithms.Peter_Norvig import PeterNorvig
-from src.algorithms.Brute_Force import BruteForce
 
 class GameOptions():
         
@@ -49,7 +51,7 @@ class GameOptions():
         self.grid_string = ''
         for row in range(len(grid)):
             self.grid_string = self.grid_string + ''.join("{0}".format(number) for number in grid[row])
-        convert_zero_to_dot = maketrans('0', '.')
+        # convert_zero_to_dot = maketrans('0', '.')
         self.grid_string = str(self.grid_string).translate(convert_zero_to_dot)
         return self.grid_string
 

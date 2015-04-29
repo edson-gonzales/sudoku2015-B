@@ -1,7 +1,7 @@
 import sys, xml.etree.ElementTree as ElementTree
 from xml.dom import minidom
 
-sys.path.append("../../sudoku2015-B")
+sys.path.append("../../")
 
 import unittest
 

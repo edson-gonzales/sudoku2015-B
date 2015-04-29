@@ -1,16 +1,17 @@
 import sys
 
-sys.path.append("../src/console")
+sys.path.append("../../sudoku2015-B")
 
 import unittest
 
-from sudokuiocsv import SudokuIOCsv
+from src.console.sudokuiocsv import SudokuIOCsv
 
 class SudokuIOCsvTest(unittest.TestCase):
-	def test_write_sudoku_in_file(self):
-		file_path = './test.txt'
-     	file_io = SudokuIOCsv(file_path)
-     	grid = [
+    def test_write_sudoku_in_file(self):
+        file_path = './test.csv'
+        print(file_path)
+        file_io = SudokuIOCsv(file_path)
+        grid = [
             [3,1,6,5,7,8,4,9,2],
             [5,2,9,1,3,4,7,6,8],
             [4,8,7,6,2,9,5,3,1],
@@ -21,20 +22,24 @@ class SudokuIOCsvTest(unittest.TestCase):
             [6,9,2,3,5,1,8,7,4],
             [7,4,5,2,8,6,3,1,9]
             ]
-        file_io.write_sudoku_in_file(grid)
-        grid_string = SudokuIO.format_grid_to_string(grid)
+        file_io.write(grid)
+        grid_string = SudokuIOCsv.format_grid_to_string(grid)
         self.assertEqual(grid_string,file_io.read_all())
         file_io.delete_content()
 
-	def test_write_a_3x3_game(self):
-		file_path = './test.txt'
+    def test_write_a_3x3_game(self):
+        file_path = './test1.csv'
         grid = [
             [1,2,3],
             [2,1,3],
             [3,2,1]
             ]
         file_io = SudokuIOCsv(file_path)
-        file_io.write_sudoku_in_file(grid)
-        grid_string = SudokuIO.format_grid_to_string(grid)
+        file_io.write(grid)
+        grid_string = SudokuIOCsv.format_grid_to_string(grid)
         self.assertEqual(grid_string,file_io.read_all())
         file_io.delete_content()
+
+
+if __name__ == '__main__':
+    unittest.main()

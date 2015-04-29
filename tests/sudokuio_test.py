@@ -50,7 +50,7 @@ class SudokuIOTest(unittest.TestCase):
     
     def test_delete_content_of_a_file(self):
         text = 'this is a text content...'
-        file_path = 'C:\\Temp\\testtest.txt'
+        file_path = './test.txt'
         file_io = SudokuIO(file_path)
         file_io.write(text)
         file_io.delete_content()
@@ -58,7 +58,7 @@ class SudokuIOTest(unittest.TestCase):
 
     def test_remove_a_file(self):
         text = 'this is a text content...'
-        file_path = 'C:\\Temp\\testtest.txt'
+        file_path = './test_file_2.txt'
         file_io = SudokuIO(file_path)
         file_io.write(text)
         file_io.delete_file()
